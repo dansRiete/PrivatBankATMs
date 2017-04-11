@@ -1,7 +1,6 @@
 package com.kuzko.aleksey.privatbankatmssgkuzko;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.kuzko.aleksey.privatbankatmssgkuzko.datamodel.DeviceAdapter;
@@ -39,26 +38,7 @@ public class UserApplication extends Application {
         this.devices = markersAdapterDao.queryForAll();
     }
 
-    public List<DeviceAdapter> reloadDevices(){
-        privatBankService.fetchATM("").subscribe(
-                example -> {
-                    clear();
-                    Toast.makeText(this, String.valueOf(example.getDevices().size()), Toast.LENGTH_LONG).show();
-                    example.getDevices().forEach(device -> devices.add(new DeviceAdapter(device)));
-                    persistAll();
-                },
-                throwable -> Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show()
-        );
-        return devices;
-    }
 
-    public void clear(){
-        devices.forEach(device -> markersAdapterDao.delete(device));
-    }
-
-    public void persistAll(){
-        devices.forEach(device -> markersAdapterDao.create(device));
-    }
 
     public List<DeviceAdapter> getDevices() {
         return devices;

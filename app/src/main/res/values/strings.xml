@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">PrivatBankATMsSGKuzko</string>
-    <string name="title_activity_main">Map</string>
+    <string name="app_name">PrivatBankATM</string>
+    <string name="title_activity_main">PrivatBank</string>
+    <string name="search_toolbar_title">Search</string>
 </resources>
