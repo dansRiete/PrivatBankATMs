@@ -1,9 +1,12 @@
 
 package com.kuzko.aleksey.privatbankatmssgkuzko.datamodel;
 
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@DatabaseTable(tableName = "tw")
 public class Tw {
 
     private String mon;
@@ -15,6 +18,20 @@ public class Tw {
     private String sun;
     private String hol;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @Override
+    public String toString() {
+        return "Tw{" +
+                "mon='" + mon + '\'' +
+                ", tue='" + tue + '\'' +
+                ", wed='" + wed + '\'' +
+                ", thu='" + thu + '\'' +
+                ", fri='" + fri + '\'' +
+                ", sat='" + sat + '\'' +
+                ", sun='" + sun + '\'' +
+                ", hol='" + hol + '\'' +
+                '}';
+    }
 
     public String getMon() {
         return mon;

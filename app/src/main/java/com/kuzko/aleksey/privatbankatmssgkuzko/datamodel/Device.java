@@ -1,22 +1,38 @@
 
 package com.kuzko.aleksey.privatbankatmssgkuzko.datamodel;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@DatabaseTable(tableName = "devices")
 public class Device {
 
+    @DatabaseField
     private String type;
+    @DatabaseField
     private String cityRU;
+    @DatabaseField
     private String cityUA;
+    @DatabaseField
     private String cityEN;
+    @DatabaseField
     private String fullAddressRu;
+    @DatabaseField
     private String fullAddressUa;
+    @DatabaseField
     private String fullAddressEn;
+    @DatabaseField
     private String placeRu;
+    @DatabaseField
     private String placeUa;
+    @DatabaseField
     private String latitude;
+    @DatabaseField
     private String longitude;
+    @DatabaseField
     private Tw tw;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

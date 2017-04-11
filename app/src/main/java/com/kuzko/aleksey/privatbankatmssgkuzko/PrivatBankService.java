@@ -10,7 +10,7 @@ import rx.Observable;
  * Created by Aleks on 10.04.2017.
  */
 
-public interface PrivatService {
+public interface PrivatBankService {
 
     @GET("infrastructure?json&atm")
     Observable<Example> fetchATM (@Query("city") String city);

@@ -1,15 +1,23 @@
 
 package com.kuzko.aleksey.privatbankatmssgkuzko.datamodel;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+@DatabaseTable(tableName = "examples")
 public class Example {
 
+    @DatabaseField
     private String city;
+    @DatabaseField
     private String address;
-    private List<Device> devices = null;
+    @ForeignCollectionField
+    private Collection<Device> devices = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getCity() {
@@ -28,11 +36,11 @@ public class Example {
         this.address = address;
     }
 
-    public List<Device> getDevices() {
+    public Collection<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(List<Device> devices) {
+    public void setDevices(Collection<Device> devices) {
         this.devices = devices;
     }
 

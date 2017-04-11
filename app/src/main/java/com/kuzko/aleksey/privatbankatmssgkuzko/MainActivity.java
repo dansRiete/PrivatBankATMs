@@ -1,5 +1,7 @@
 package com.kuzko.aleksey.privatbankatmssgkuzko;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
@@ -8,24 +10,21 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.kuzko.aleksey.privatbankatmssgkuzko.datamodel.Device;
 
+import java.io.IOException;
 import java.util.List;
-
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import java.util.Locale;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private final static String BASE_URL = "https://api.privatbank.ua/p24api/";
-    PrivatService privatService;
+
     List<Device> devices;
+    LatLng chernivtsi = new LatLng(48.29, 25.93);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +34,39 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        privatService = retrofit.create(PrivatService.class);
-        privatService.fetchATM("")
+    }
+
+    private String determineCityByCoords(LatLng coords){
+        Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+        String city = null;
+        try {
+            addresses = gcd.getFromLocation(chernivtsi.latitude, chernivtsi.longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses != null && addresses.size() > 0){
+            city = addresses.get(0).getLocality();
+        }else {
+            city = "Черновцы";
+        }
+        Toast.makeText(this, city, Toast.LENGTH_LONG).show();
+        return city;
+    }
+
+    /*private void showDevices(String city){
+        privatBankService.fetchATM(city)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(example -> setAllDevices(example.getDevices()),
                         throwable -> Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+    }*/
 
+    private void centerCameraOnGivenLocation(LatLng givenCoords, float zoom){
+        if(givenCoords != null){
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(givenCoords).zoom(zoom).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
     private void setAllDevices(List<Device> devices){
@@ -64,19 +84,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-
-        LatLng chernivtsi = new LatLng(48.29, 25.93);
-        /*devices.forEach(device -> {
-            LatLng currPos = new LatLng(Double.valueOf(device.getLatitude()), Double.valueOf(device.getLongitude()));
-            mMap.addMarker(new MarkerOptions().position(currPos).title(device.getPlaceUa()));
-        });
-        for(Device device : devices){
-            LatLng currPos = new LatLng(Double.valueOf(device.getLatitude()), Double.valueOf(device.getLongitude()));
-            mMap.addMarker(new MarkerOptions().position(currPos).title(device.getPlaceUa()));
-        }*/
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(chernivtsi));
+        centerCameraOnGivenLocation(chernivtsi, 12);
+        Toast.makeText(this, String.valueOf(((UserApplication) this.getApplication()).reloadDevices().size()), Toast.LENGTH_LONG).show();
+        //        showDevices(determineCityByCoords(chernivtsi));
     }
 }
