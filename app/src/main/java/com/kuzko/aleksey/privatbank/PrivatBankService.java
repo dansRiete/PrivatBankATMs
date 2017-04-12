@@ -1,6 +1,6 @@
 package com.kuzko.aleksey.privatbank;
 
-import com.kuzko.aleksey.privatbank.datamodel.Example;
+import com.kuzko.aleksey.privatbank.datamodel.City;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -13,5 +13,5 @@ import rx.Observable;
 public interface PrivatBankService {
 
     @GET("infrastructure?json&atm")
-    Observable<Example> fetchATMs(@Query("city") String city);
+    Observable<City> fetchDevices(@Query("city") String city);
 }

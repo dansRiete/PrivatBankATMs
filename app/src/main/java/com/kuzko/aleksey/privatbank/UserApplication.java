@@ -3,7 +3,7 @@ package com.kuzko.aleksey.privatbank;
 import android.app.Application;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.kuzko.aleksey.privatbank.datamodel.DeviceAdapter;
+import com.kuzko.aleksey.privatbank.datamodel.DatabaseDeviceAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ public class UserApplication extends Application {
 
     private final static String BASE_URL = "https://api.privatbank.ua/p24api/";
     private DatabaseHelper databaseHelper;
-    private List<DeviceAdapter> devices = new ArrayList<>();
-    private RuntimeExceptionDao<DeviceAdapter, Long> markersAdapterDao;
+    private List<DatabaseDeviceAdapter> devices = new ArrayList<>();
+    private RuntimeExceptionDao<DatabaseDeviceAdapter, Long> markersAdapterDao;
     PrivatBankService privatBankService;
 
     @Override
@@ -40,7 +40,7 @@ public class UserApplication extends Application {
 
 
 
-    public List<DeviceAdapter> getDevices() {
+    public List<DatabaseDeviceAdapter> getDevices() {
         return devices;
     }
 

@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable(tableName = "markerinfos")
-public class DeviceAdapter {
+public class DatabaseDeviceAdapter {
 
     @DatabaseField(generatedId = true)
     private long id;
@@ -22,18 +22,11 @@ public class DeviceAdapter {
     @DatabaseField
     private String markerTitle;
 
-    public DeviceAdapter(){}
+    public DatabaseDeviceAdapter(){}
 
-    public DeviceAdapter(Marker marker){
-        this.latitude = marker.getPosition().latitude;
-        this.longitude = marker.getPosition().longitude;
-        this.markerSnippet = marker.getSnippet();
-        this.markerTitle = marker.getTitle().equals("") ? "Unnamed" : marker.getTitle();
-    }
-
-    public DeviceAdapter(Device device){
+    public DatabaseDeviceAdapter(Device device){
         this.markerSnippet = device.getFullAddressRu();
-        this.markerTitle = device.getTw().toString();
+        this.markerTitle = device.getCityRU() + " - " + device.getPlaceRu();
         this.latitude = Double.valueOf(device.getLatitude());
         this.longitude = Double.valueOf(device.getLongitude());
     }
@@ -78,7 +71,7 @@ public class DeviceAdapter {
         this.markerTitle = markerTitle;
     }
 
-    public DeviceAdapter update(Marker marker){
+    public DatabaseDeviceAdapter update(Marker marker){
         this.latitude = marker.getPosition().latitude;
         this.longitude = marker.getPosition().longitude;
         this.markerSnippet = marker.getSnippet();
