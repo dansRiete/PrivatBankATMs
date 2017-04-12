@@ -1,4 +1,4 @@
-package com.kuzko.aleksey.privatbankatmssgkuzko;
+package com.kuzko.aleksey.privatbank;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,7 +7,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.kuzko.aleksey.privatbankatmssgkuzko.datamodel.DeviceAdapter;
+import com.kuzko.aleksey.privatbank.datamodel.DeviceAdapter;
 
 /**
  * Created by Aleks on 11.04.2017.

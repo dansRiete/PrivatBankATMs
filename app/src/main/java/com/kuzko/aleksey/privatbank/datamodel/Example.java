@@ -1,22 +1,14 @@
 
-package com.kuzko.aleksey.privatbankatmssgkuzko.datamodel;
-
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.table.DatabaseTable;
+package com.kuzko.aleksey.privatbank.datamodel;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-@DatabaseTable(tableName = "examples")
 public class Example {
 
-    @DatabaseField
     private String city;
-    @DatabaseField
     private String address;
-    @ForeignCollectionField
     private Collection<Device> devices = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

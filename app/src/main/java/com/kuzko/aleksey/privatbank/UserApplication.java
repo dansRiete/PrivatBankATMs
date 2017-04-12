@@ -1,9 +1,9 @@
-package com.kuzko.aleksey.privatbankatmssgkuzko;
+package com.kuzko.aleksey.privatbank;
 
 import android.app.Application;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.kuzko.aleksey.privatbankatmssgkuzko.datamodel.DeviceAdapter;
+import com.kuzko.aleksey.privatbank.datamodel.DeviceAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

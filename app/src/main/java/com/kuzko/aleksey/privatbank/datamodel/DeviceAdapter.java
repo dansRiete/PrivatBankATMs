@@ -1,4 +1,4 @@
-package com.kuzko.aleksey.privatbankatmssgkuzko.datamodel;
+package com.kuzko.aleksey.privatbank.datamodel;
 
 import com.google.android.gms.maps.model.Marker;
 import com.j256.ormlite.field.DatabaseField;

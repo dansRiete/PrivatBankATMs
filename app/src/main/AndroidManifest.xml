@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.kuzko.aleksey.privatbankatmssgkuzko">
+          package="com.kuzko.aleksey.privatbank">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -15,7 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:name=".UserApplication"
+        android:name="com.kuzko.aleksey.privatbank.UserApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -32,8 +32,9 @@
             android:value="@string/google_maps_key"/>
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main">
+            android:name="com.kuzko.aleksey.privatbank.MainActivity"
+            android:label="@string/title_activity_main"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

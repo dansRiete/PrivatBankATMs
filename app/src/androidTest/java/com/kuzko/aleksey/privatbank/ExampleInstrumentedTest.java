@@ -1,4 +1,4 @@
-package com.kuzko.aleksey.privatbankatmssgkuzko;
+package com.kuzko.aleksey.privatbank;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

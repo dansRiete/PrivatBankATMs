@@ -1,12 +1,9 @@
 
-package com.kuzko.aleksey.privatbankatmssgkuzko.datamodel;
-
-import com.j256.ormlite.table.DatabaseTable;
+package com.kuzko.aleksey.privatbank.datamodel;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@DatabaseTable(tableName = "tw")
 public class Tw {
 
     private String mon;
