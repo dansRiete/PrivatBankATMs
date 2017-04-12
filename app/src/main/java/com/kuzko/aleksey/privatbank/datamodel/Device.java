@@ -17,7 +17,7 @@ public class Device {
     private String placeUa;
     private String latitude;
     private String longitude;
-    private Tw tw;
+    private WorkingTime tw;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getType() {
@@ -108,11 +108,11 @@ public class Device {
         this.longitude = longitude;
     }
 
-    public Tw getTw() {
+    public WorkingTime getTw() {
         return tw;
     }
 
-    public void setTw(Tw tw) {
+    public void setTw(WorkingTime tw) {
         this.tw = tw;
     }
 

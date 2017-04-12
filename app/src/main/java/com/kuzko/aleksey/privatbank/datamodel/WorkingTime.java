@@ -4,7 +4,7 @@ package com.kuzko.aleksey.privatbank.datamodel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tw {
+public class WorkingTime {
 
     private String mon;
     private String tue;
@@ -18,7 +18,7 @@ public class Tw {
 
     @Override
     public String toString() {
-        return "Tw{" +
+        return "WorkingTime{" +
                 "mon='" + mon + '\'' +
                 ", tue='" + tue + '\'' +
                 ", wed='" + wed + '\'' +
