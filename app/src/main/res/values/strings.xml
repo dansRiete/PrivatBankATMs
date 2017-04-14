@@ -3,4 +3,5 @@
     <string name="title_activity_main">PrivatBankATMs</string>
     <string name="search_toolbar_title">Search</string>
     <string name="msg_no_location_permissons">YOU GOT NO LOCATION PERMISSIONS</string>
+    <string name="direction_api_key">AIzaSyAtwjWUPJzZUl2tw5ejP3wsUZOfckfNJBo</string>
 </resources>

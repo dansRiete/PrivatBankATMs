@@ -400,7 +400,9 @@ public class MainActivity extends AppCompatActivity implements
         } else if (requestCode == CENTER_CAMERA_PERMISSION_CODE) {
             try {
                 myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                centerCamera(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()));
+                if(myLastLocation != null){
+                    centerCamera(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()));
+                }
                 searchDevices(determineCityName(myLastLocation));
             } catch (SecurityException e) {
                 Toast.makeText(this, R.string.msg_no_location_permissons, Toast.LENGTH_LONG).show();
