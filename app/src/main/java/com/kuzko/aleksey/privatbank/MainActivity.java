@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     private final static int SET_MY_LOCATION_PERMISSION_CODE = 101;
+    private final static int MIN_CHARS_NUMBER_TO_SHOW_SUGGESTIONS = 2;
     private final static int CENTER_CAMERA_PERMISSION_CODE = 102;
     private final static String PRIVATBANK_BASE_API_URL = "https://api.privatbank.ua/p24api/";
     private final static String CURSOR_CITY_KEY = "City";
@@ -192,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements
                 hideKeyboard();
                 if (searchedCity != null && !searchedCity.equals("")) {
                     searchDevices(searchedCity);
-//                    centerCamera(obtainCoordinates(searchedCity), DEFAULT_ZOOM);
                     new CenterCameraOnCity(searchedCity).execute();
                 }
                 return true;
@@ -209,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements
                 progressBar.setVisibility(ProgressBar.VISIBLE);
                 if (searchedCity != null && !searchedCity.equals("")) {
                     searchDevices(searchedCity);
-//                    centerCamera(obtainCoordinates(searchedCity), DEFAULT_ZOOM);
                     new CenterCameraOnCity(searchedCity).execute();
                 }
                 return false;
@@ -217,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public boolean onQueryTextChange(String query) {
-                if(query.toCharArray().length >= 3){
+                if(query.toCharArray().length >= MIN_CHARS_NUMBER_TO_SHOW_SUGGESTIONS){
                     privatBankService.fetchDevices(query)
                             .subscribeOn(Schedulers.io())
                             .map(response -> {
@@ -237,28 +236,6 @@ public class MainActivity extends AppCompatActivity implements
                                     throwable -> System.out.println(throwable.getLocalizedMessage())
                             );
                 }
-
-
-                /*if (query.equals("")) {
-//                    progressBar.setVisibility(ProgressBar.INVISIBLE);
-                    *//*if(weatherRequest != null){
-                        weatherRequest.cancel();
-                    }*//*
-                    showSuggestions(Arrays.asList(query, "Two", query));
-                } else {
-                    *//*weatherService.searchLocations(query).enqueue(new Callback<List<Location>>() {
-                        @Override
-                        public void onResponse(Call<List<Location>> call, City<List<Location>> response) {
-                            if (response.isSuccessful()) {
-                                showSuggestions(response.body());
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<List<Location>> call, Throwable t) {
-                            showSuggestions(null);
-                        }
-                    });*//*
-                }*/
                 return false;
             }
         });
@@ -336,36 +313,6 @@ public class MainActivity extends AppCompatActivity implements
         return deviceAdapters;
     }
 
-    //// TODO: 12.04.2017 Make asyncronous
-    /*public LatLng obtainCoordinates(String cityName) {
-
-        if(cityName == null || cityName.equals("")){
-            return null;
-        }
-
-        Geocoder geocoder = new Geocoder(this);
-        List<Address> address = null;
-        LatLng obtainedCoordinates = null;
-        try {
-            address = geocoder.getFromLocationName(cityName + ", Украина", 5);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        if(address != null && address.size() > 0){
-            Address location = address.get(0);
-            obtainedCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
-        }
-
-        return obtainedCoordinates;
-    }*/
-
-    /*private void centerCamera(LatLng givenCoords, float zoom) {
-        if (givenCoords != null) {
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(givenCoords).zoom(zoom).build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
-    }*/
-
     private void redrawDevicesOnMap() {
 
         if (devices != null){
@@ -376,14 +323,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
     }
-
-    /*private void centerCamera(Location givenLocation) {
-        if (givenLocation != null) {
-            LatLng givenCoords = new LatLng(givenLocation.getLatitude(), givenLocation.getLongitude());
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(givenCoords).zoom(DEFAULT_ZOOM).build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
-    }*/
 
     private void centerCamera(LatLng givenCoords) {
         if (givenCoords != null) {
