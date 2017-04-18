@@ -1,4 +1,4 @@
-package com.kuzko.aleksey.privatbank;
+package com.kuzko.aleksey.privatbank.utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,7 +18,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private RuntimeExceptionDao<DatabaseDeviceAdapter, Long> markersDao;
     private static final String DATABASE_NAME = "markers.db3";
     private static final int DATABASE_VERSION = 1;
-    private ConnectionSource connectionSource;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,7 +25,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
-        this.connectionSource = connectionSource;
         try {
             TableUtils.createTable(connectionSource, DatabaseDeviceAdapter.class);
         } catch (java.sql.SQLException e) {
