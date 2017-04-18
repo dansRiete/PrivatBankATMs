@@ -1,0 +1,1139 @@
+{
+  "geocoded_waypoints": [
+    {
+      "geocoder_status": "OK",
+      "place_id": "ChIJBc324n8INEcRem15WfaWs8U",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "geocoder_status": "OK",
+      "place_id": "ChIJBUVa4U7P1EAR_kYBF9IxSXY",
+      "types": [
+        "locality",
+        "political"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 50.4592842,
+          "lng": 30.5238646
+        },
+        "southwest": {
+          "lat": 48.2510589,
+          "lng": 25.9357695
+        }
+      },
+      "copyrights": "Картографические данные © 2017 Google",
+      "legs": [
+        {
+          "distance": {
+            "text": "527 км",
+            "value": 526882
+          },
+          "duration": {
+            "text": "7 ч. 45 мин.",
+            "value": 27926
+          },
+          "end_address": "Киев, Украина",
+          "end_location": {
+            "lat": 50.44985029999999,
+            "lng": 30.5238646
+          },
+          "start_address": "Черновцы, Черновицкая область, Украина",
+          "start_location": {
+            "lat": 48.2920944,
+            "lng": 25.9357695
+          },
+          "steps": [
+            {
+              "distance": {
+                "text": "33 м",
+                "value": 33
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 12
+              },
+              "end_location": {
+                "lat": 48.2923724,
+                "lng": 25.935916
+              },
+              "html_instructions": "Направляйтесь на \u003cb\u003eсевер\u003c/b\u003e по \u003cb\u003eЦентральна пл.\u003c/b\u003e в сторону \u003cb\u003eвул. Руська\u003c/b\u003e/\u003cb\u003eP62\u003c/b\u003e/\u003cb\u003eР62\u003c/b\u003e",
+              "polyline": {
+                "points": "q`weHqqh}Cw@]"
+              },
+              "start_location": {
+                "lat": 48.2920944,
+                "lng": 25.9357695
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "27 м",
+                "value": 27
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 32
+              },
+              "end_location": {
+                "lat": 48.292465,
+                "lng": 25.9355817
+              },
+              "html_instructions": "Поверните \u003cb\u003eналево\u003c/b\u003e на \u003cb\u003eвул. Руська\u003c/b\u003e/\u003cb\u003eP62\u003c/b\u003e/\u003cb\u003eР62\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "ibweHorh}CQbA"
+              },
+              "start_location": {
+                "lat": 48.2923724,
+                "lng": 25.935916
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,5 км",
+                "value": 460
+              },
+              "duration": {
+                "text": "2 мин.",
+                "value": 110
+              },
+              "end_location": {
+                "lat": 48.2963059,
+                "lng": 25.9378768
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eвул. Головна\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "{bweHkph}CgC_B[Si@[e@Wg@SiAc@KEq@Wu@QYMc@U}@i@EAgAo@_@Q}@i@"
+              },
+              "start_location": {
+                "lat": 48.292465,
+                "lng": 25.9355817
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,9 км",
+                "value": 870
+              },
+              "duration": {
+                "text": "2 мин.",
+                "value": 146
+              },
+              "end_location": {
+                "lat": 48.2904815,
+                "lng": 25.945236
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eвул. Сагайдачного\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "}zweHw~h}CGQ?AAC?A?A?C?C?C?C?AD[@E?A?A?AAG?EAGX_@pB{C~@kApA}Bl@_At@{@n@s@pCaDjC{Cn@u@bAkAh@o@b@c@j@q@bAiA`AgA|@cA@AB?@?H?"
+              },
+              "start_location": {
+                "lat": 48.2963059,
+                "lng": 25.9378768
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,9 км",
+                "value": 852
+              },
+              "duration": {
+                "text": "3 мин.",
+                "value": 171
+              },
+              "end_location": {
+                "lat": 48.288314,
+                "lng": 25.9562752
+              },
+              "html_instructions": "Поверните \u003cb\u003eналево\u003c/b\u003e на \u003cb\u003eвул. Руська\u003c/b\u003e/\u003cb\u003eP62\u003c/b\u003e/\u003cb\u003eР62\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "ovveHwlj}CDg@ZqED]h@wEFi@NgAl@kFZeCXwBTiBf@cEDWx@aHd@}D@Qj@sEPgA"
+              },
+              "start_location": {
+                "lat": 48.2904815,
+                "lng": 25.945236
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "1,8 км",
+                "value": 1762
+              },
+              "duration": {
+                "text": "3 мин.",
+                "value": 198
+              },
+              "end_location": {
+                "lat": 48.289684,
+                "lng": 25.9758911
+              },
+              "html_instructions": "Поверните \u003cb\u003eналево\u003c/b\u003e на \u003cb\u003eвул. Московської Олімпіади\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "}hveHwql}CcEqGyDcGqCuE?Ai@}@w@kAc@o@w@oAu@iAo@eA]g@Q[IQGQEKI]IkA?]?M@M?Y?G@M?IBYBQBSRsALa@Rs@Jc@Lg@nA_EVy@\\oA`@qAV}@FUBI@G?C?C?Cp@qBXgAv@uCT}@`A{Dn@wCVcAR_AZ}ARwAHmBD}A?sAGmAEk@Go@QmA"
+              },
+              "start_location": {
+                "lat": 48.288314,
+                "lng": 25.9562752
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "3,7 км",
+                "value": 3685
+              },
+              "duration": {
+                "text": "5 мин.",
+                "value": 277
+              },
+              "end_location": {
+                "lat": 48.3000733,
+                "lng": 26.0153171
+              },
+              "html_instructions": "Продолжайте движение прямо по \u003cb\u003eвул. Московської Олімпіади\u003c/b\u003e",
+              "maneuver": "straight",
+              "polyline": {
+                "points": "oqveHilp}CsAmIG]_@iB{@iEO{@Mq@EYCMAKAOAKAI?IAc@?k@?cADqBD{@Hu@RiBd@yDNgALgAJq@RgADYNi@J_@FSDOBIFQTi@HU\\q@^c@`@u@n@iAp@gAf@aATg@L_@Ts@Tq@LcARuAJaAFq@ZwC`@_DZeCN{B@eB@kBCgAGsAIq@Gc@I]ACGWe@oAM_@yAoDeCyGcCwG_BmEuAwDkA}CeA{C{@aCs@mBk@}AIW]y@]q@aAgAUOg@a@[Qq@[k@W}As@oBy@oCiAQGuBaA_Ag@YWmAq@WSWSY[Y[W_@Yi@g@gAKSKWKWEOIQQ[Qs@AAw@cCa@mASs@]iAg@kBgAsDw@mCWs@Ms@AKAE?G?E?C?GAI?EAE?AEQ"
+              },
+              "start_location": {
+                "lat": 48.289684,
+                "lng": 25.9758911
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "2,1 км",
+                "value": 2148
+              },
+              "duration": {
+                "text": "2 мин.",
+                "value": 123
+              },
+              "end_location": {
+                "lat": 48.2866896,
+                "lng": 26.0355044
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e1-й\u003c/b\u003e съезд на \u003cb\u003eЕ85\u003c/b\u003e/\u003cb\u003eМ19\u003c/b\u003e/\u003cb\u003eН03\u003c/b\u003e/\u003cb\u003eН10\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "mrxeHwbx}C?A@A@A?C@A?A@C?APST]Va@f@s@vAs@r@_@hAq@RMTORORQRQ^_@lB}BzAkB~AyB^e@|EoGzByChAwAj@w@v@iAXa@Zc@lCoDz@oArBuCt@eALC@A@?@A~@wA`@q@l@iA^o@\\s@Na@xAyDd@uAv@{B`AaDjBqG`AiDvBqHh@gBnByG"
+              },
+              "start_location": {
+                "lat": 48.3000733,
+                "lng": 26.0153171
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "56,5 км",
+                "value": 56497
+              },
+              "duration": {
+                "text": "48 мин.",
+                "value": 2895
+              },
+              "end_location": {
+                "lat": 48.5337921,
+                "lng": 26.4845492
+              },
+              "html_instructions": "Держитесь \u003cb\u003eлевее\u003c/b\u003e, продолжая движение по \u003cb\u003eН03\u003c/b\u003e/\u003cb\u003eН10\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eПродолжайте движение по Н03\u003c/div\u003e",
+              "maneuver": "keep-left",
+              "polyline": {
+                "points": "y~ueH{`|}CcAw@sAe@{@Uk@_@{@Ws@[_Ag@_BgDmL[kA}BuIwCuLgCgK}AkGsAwFuA}F_B}GEo@Ae@?W?W"
+              },
+              "start_location": {
+                "lat": 48.2866896,
+                "lng": 26.0355044
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "56,8 км",
+                "value": 56780
+              },
+              "duration": {
+                "text": "54 мин.",
+                "value": 3258
+              },
+              "end_location": {
+                "lat": 48.8957225,
+                "lng": 26.8626498
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e2-й\u003c/b\u003e съезд и продолжайте движение по \u003cb\u003eН03\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "egfgHmws`@CD"
+              },
+              "start_location": {
+                "lat": 48.5337921,
+                "lng": 26.4845492
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "1,7 км",
+                "value": 1723
+              },
+              "duration": {
+                "text": "2 мин.",
+                "value": 131
+              },
+              "end_location": {
+                "lat": 48.91105899999999,
+                "lng": 26.8639495
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e2-й\u003c/b\u003e съезд на \u003cb\u003eвул. Шевченка\u003c/b\u003e/\u003cb\u003eН03\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "g}liHqr}bDA??AA??AEAAAA?AAC?A?C?A??@A?A?A@A?SSw@a@a@SMEa@YYQa@OUIg@Mq@EK?uAA[?wDCG?i@?qAAQ?g@?u@A_@?wB?M?}A?Y?m@AM?K?}C?[?aCCYAU?{A?yFAmIA}F?oEAyCAa@?[GOCAAOIMMWS"
+              },
+              "start_location": {
+                "lat": 48.8957225,
+                "lng": 26.8626498
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "31,2 км",
+                "value": 31197
+              },
+              "duration": {
+                "text": "25 мин.",
+                "value": 1524
+              },
+              "end_location": {
+                "lat": 49.1727881,
+                "lng": 26.8510515
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e1-й\u003c/b\u003e съезд на \u003cb\u003eН03\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "c}oiHuz}bDIOEGEEECGAEAG?G?EBGBEBEFEDc@^MHQJa@Jk@?aDAqB?}EAgEAwBAeB?G?eCAqCAqBAsC?oCAmC?qC?oCAqCAiA?aA?kBAsCAoCAeB?q@?mCAcDA{B?q@Aq@?q@?]AsC?wICsCGsA?iB?sPG]AeCAcD?aEA_EAo@AUAY?eA?oAAqC?gCAkC?}ICqC?eCA_GCqA?qIAcFA[@G?QDM?{FCob@MiAAeCAoCAmDAqC?sAAqC?sDAgEAgFCuB?mDAoCAiDAsB?yAAeCAaB?c@A}A?}@?}BA_BCmACsAGwAIy@Gw@Iu@Ie@IqASy@Ow@OsA[sA]{Ac@kBk@oDeAyAe@{DmAcHuBuFcB}FeByFeBcc@uM_[iJ{GqBqEuAeHwBuGqB_Be@sDgAyFeB]KQGoFaBeFaBoEuAaD_AWI[K{J{CSG_@Mu@Uo@SmA_@kDeAmCw@wC{@UGQGgLmDKCWMA?QKWOQMSQOMQUQSMSOUO[GQISIUSu@IYQu@I]Ow@_@eBUoAOs@Kc@Mc@KWMYOYMQQWOUC?UW]Wi@[k@]o@[gDcB_EoBmCsAwGeDkDgB_By@wAy@aAm@oAu@aAq@u@i@aD{BuAaAkDgCyCuB{CwBiBqAqA_AgBoA{MsJgGmEEC_JqGsTyOce@u\\gQcMSOWQqKyHkJ{GcD_CiE{C{DsCmDgC{C{B}B_B]Y]Um@_@q@]gAg@oA_@gAUk@Ii@Gk@Co@Ci@@c@@W@W@YD]DSB]Hu@Pi@Py@Xg@Rm@ViBr@yB~@mBv@kBv@iCdAmBv@yEnBmChAaDpAeBr@qAh@gBr@uClAeCbAcBr@{CnAoAf@eAb@aA^aAZeA\\wA^cAVc@JSDMBQBy@PWDi@JkDl@OBc@HkHnAQD}Ch@k@Je@H_BX]FqATuB\\}AXmBZiF|@kDj@iDl@_C^}B`@oATkB\\oB\\iBZsAT_BXqATm@Lq@Na@Jg@NGBc@Nm@XC@e@Ta@Te@Zo@d@ED[VCBs@p@gArAe@p@g@x@uAhCyBbEk@fAWf@iAvB{CtF[d@W`@UVOPSPOJQLYPOFIDIBODODOBQ@W@Y?q@A}BOwCY_D[mD]eCU_BOq@Ek@?e@@W?SBWBSD]Jm@PQFWJi@Vc@R_Bv@mB~@_DzAqDbBgD~AkErBiCnAkAj@c@RoAp@iAn@s@d@cCbB{CzBkCtBCBeBpAyCpBuAr@qAl@{Ap@aA^qA^C@o@P[HqCr@u@Ts@Re@Rc@RYP[T_@Zs@p@iBhBo@n@uCvCyDvDeEbEkAfAuEvEwCxCMLu@t@{BzBiFfFg@f@_D~CuFpFe^`^wKtK{N|NqAnAYVWTq@n@}@p@q@f@c@Xi@Ze@V_@Ta@R}@`@aEfBUJGBu@\\o@\\SJOJSNQPSRSRY^KJEFIL_@d@qBlCEHKLk@r@OPaCbDwBrCuAhBmBlCIJIHGHEFA@}ApBsBpCgB~BqBpCsBnCCDcArAA@q@z@k@p@IHQPIJGDMJSNUNQHOFOFUHWFUDOBQ@Q@S@S?SAOAMAA?QCSEaBWYCKAS?Q?O@UBQBSDSDWH{Ad@aBh@iCv@ODSDu@R_Ch@UFcE`Aa@JsBf@cDx@}LvC{GbBgATeBd@oBd@m@NsAZeB`@sBh@}A^}Bj@qBd@_Cl@mCp@_ATe@BQAOAUCUG"
+              },
+              "start_location": {
+                "lat": 48.91105899999999,
+                "lng": 26.8639495
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "3,4 км",
+                "value": 3373
+              },
+              "duration": {
+                "text": "3 мин.",
+                "value": 199
+              },
+              "end_location": {
+                "lat": 49.2001407,
+                "lng": 26.8616474
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e1-й\u003c/b\u003e съезд и продолжайте движение по \u003cb\u003eН03\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "}`ckHaj{bDCCAAAAAAAAAACACSCECKMOIOGMM]OyAS}AOcAQgAS{@CGU}@W}@Sq@AC_@{@[m@a@s@i@u@_@c@o@s@q@s@u@o@i@_@u@c@s@_@eAe@s@WmA]]I}@Qk@Gq@Gg@Cu@AwB@_D@sA@wA?eC@gD?u@Cw@Es@Go@Iq@Me@Mq@S}@_@mAm@k@YYOUMmFwCyF}CaEyB_CoAe@UQKQKwDqBu@]IEa@Qe@S]KEAa@M_@G_@IaAQe@Ga@Ea@Ci@As@CgA@k@B_@DWDSFOFu@XuAp@}@f@}A~@qCbBgAh@i@Tk@TYHSDSBK@S?G?QAa@GyBc@u@MyAYc@KmAaA"
+              },
+              "start_location": {
+                "lat": 49.1727881,
+                "lng": 26.8510515
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "19,6 км",
+                "value": 19614
+              },
+              "duration": {
+                "text": "17 мин.",
+                "value": 1020
+              },
+              "end_location": {
+                "lat": 49.3604607,
+                "lng": 26.9628779
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e1-й\u003c/b\u003e съезд и продолжайте движение по \u003cb\u003eН03\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "{khkHil}bDEIEGGGECGCGCI?G@IBm@FM@Q?a@Ai@a@GEcCiB}EsDmRyN_GmEgAy@QMSQ_CeBKIgEaDiCoBaCgB}N}K_CgBgBsAwC{B_CgB_KyHkA}@eBsAoDqCuDqCs@k@kEgD}BgBs@k@k@m@_CgB{AkAqB}AcBqA}MeKaCkByBeByC_Cc@YqCyBwFiEmAaAkA}@kQcN{DyCcAy@}AmAiA{@mB{AoBcBcB}AqBiBsAqAgB_BmBcB}AuAoB}A]U]YcAq@u@g@]UmA{@QMi@]cDyBWQMGuGsEyCqBeD{BeAs@uCmB}B}AoE}C{KsHcDyBiBqAiBqA}@m@q@e@eBmAuJuGgK_HqDgCwDiC{CsBuKsHiCeBAAIGsDcC}@i@qEuCuKwH}DoC}B{AgBoA{AcAkBoAeBkAeBmAiBmAiBoAqA_AqE}CmAy@eBmACAUOaC_BGEIGa@U}@a@MGECc@M[KUGg@MQC}Dy@}D{@gCk@]GwBe@aAUSEa@IaASiBa@mBc@IA}@S_Cg@eB_@QEKCmAUICyJqBeDq@wBc@KCMCOEgKwB}EcAeASqLcCkE_AgFgAkAUwBe@KCgASKCmE}@kAWcAWuAg@q@]_@Ua@Wm@i@a@a@c@k@Ya@wAoBiAyA_BwBqA_Bo@q@qAeAyEgEmF_FwBoB}AuAGG[[_FkEaByAmCaCw@u@mBcBsBkBqBiBaByA}@{@MMeA_AKIcC}B}A}Au@}@a@g@aAkA{AmBg@q@GIKKY]s@}@mA{AcBsBwAgBKMMQsAeB_FgGkFsG{DaFwBkCcAgAw@m@]SwAw@iE}BuDoB{Ay@q@]]QOK[O}EiCsAs@o@Yw@[e@M_@ISEWCYC[?Y?]?YB_@D]FWF[HWJSHUL_@RYPiC`BYL_@PUFQHe@HUDc@D]@]?WCk@Em@Kq@Mg@MoFuA{DeA[ISGmBk@uA_@cAYaAWsD_AmKmCUGcFmAeBc@qA]yA]cAW{Cw@mEiAgEgAkFuAuLwC}Bg@QECAkASmDs@gDm@oCi@qDu@uB_@wAQ{@KoAIq@Ei@Ag@@_@@oALaFf@s@FSBYBUEO@I?I?KAKCMEc@Q"
+              },
+              "start_location": {
+                "lat": 49.2001407,
+                "lng": 26.8616474
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "15,6 км",
+                "value": 15633
+              },
+              "duration": {
+                "text": "13 мин.",
+                "value": 780
+              },
+              "end_location": {
+                "lat": 49.4024177,
+                "lng": 27.1152964
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e3-й\u003c/b\u003e съезд на \u003cb\u003eЕ50\u003c/b\u003e/\u003cb\u003eМ12\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "{uglH_eqcDCOGWEOGOKMWYCAGEEAEAW[KOISGSGYGw@_@cEcA{K_AcK[gD[kDWwCIcAI{@S_CSmB[aD{AuPq@qHq@wHg@wFWsCE_@CYAWAIEm@C]AYAYA[AWG{AGwBGiCC{@Cu@?c@Ae@?e@?g@?[?m@?w@@{@@y@@mAB}@Bs@@c@Ba@Be@Di@Bg@F}@Fo@Fy@Da@Dc@Ho@LcARcBDYBSF[z@wFp@gE\\}BXiBHq@xA_Kr@{EVcBhAwHdCiPj@{Dt@mFVmBBONqADe@Da@Fm@Bc@Bc@Dk@Bc@D}@@]@_@@e@@e@?e@@oA@{@?k@?i@Ai@Ac@?]Aa@AW?YCg@Ak@Cc@Ci@Ca@C]Eg@Eu@SiCOcBo@cIMwA[}DY_DyAeQ_D_^_@wEIaAM_BKiBC[AYC]A[A[?]AY?e@Ai@AuA?oA?[?Q?S?O?Q@YF{B@a@@W@W@WBa@@]B]B[HcAFi@Fo@Fs@\\wCXqC`@cEt@wHl@_Gl@yFXoCR}Ad@eETuBPcBFq@RwBZmDbB{RXiDt@wJz@gKTuCPiCTeDBQf@{GRoCPgCHsAJwABa@B_@v@eKh@wG|@_LtAaPNaBt@kKNkBn@{HdAcMf@yFb@qF|@iKx@eJVoCh@cGr@uIHaAZyDPsBLkBBe@Dw@@[@]?[?i@?q@Ak@AWCy@C[CYEe@Ea@Im@ESEYMm@Q_AI]G[Om@YiAYaAK]GS[y@]_AIWSc@c@}@IQIOMUOU_@i@[c@W]]a@IKWUWUQOIIOKWQa@Ya@We@YYQSKWOQIMGQGKEuCeAWKsI_DaDkAgE}AaE{AkCaAeBo@m@UYKWM]MSIiAi@}Au@_L{FqIgE_I}DaEqB{Aq@UKOISGQGSGUG[I_@IUGWCYEe@Cc@C]Ac@A_@?Q@Q?a@BSB_CZ[F]Fk@JUDYHWHQFMFSJ[Ni@XYPUPWNa@ZeErDc@\\UP[Tu@f@oAt@_B`Ai@Za@Ro@ZQHQFOFSFODMBMBOBMBO@G@I@M@o@Fc@@sADW@s@Ba@?gAAeDIi@Ag@A}BGiFOaACcACYAeEKoCKQ?w@EUAUCSAOCYCSCYG]GYG[IOEOGC?MGKEq@WOIMGOISKSMOIMKIGIGOMOMMKKKUWMOKKOQOSQSU[U[QYQWMU}@{AuA{BkCoEkCoEgAkBMUw@qAs@kAu@gAMSGIkEsGgDcFqCcEyD}F{BeDoAiBc@m@KMOQKKIGMK"
+              },
+              "start_location": {
+                "lat": 49.3604607,
+                "lng": 26.9628779
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "62,7 км",
+                "value": 62679
+              },
+              "duration": {
+                "text": "57 мин.",
+                "value": 3424
+              },
+              "end_location": {
+                "lat": 49.3841314,
+                "lng": 27.9242094
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e и продолжайте движение по \u003cb\u003eЕ50\u003c/b\u003e/\u003cb\u003eМ12\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "c|olHs}ndDTO|DoXf@mDRsAv@mF"
+              },
+              "start_location": {
+                "lat": 49.4024177,
+                "lng": 27.1152964
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "12,3 км",
+                "value": 12318
+              },
+              "duration": {
+                "text": "12 мин.",
+                "value": 695
+              },
+              "end_location": {
+                "lat": 49.4930764,
+                "lng": 27.9438482
+              },
+              "html_instructions": "Поверните \u003cb\u003eналево\u003c/b\u003e на \u003cb\u003eТ0610\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "yillHi}liDg@AsAC[AcRYgHIcDGsDCaGKqAE_DE_DEkBCmBCgAAsBEwACiCC{AE}AAuAC}@CoBCwACaBEyBCuCG_BEkACg@?]CSCOCQCSESGuB{@cFkBuMsEmDmAmEaBsBu@WIICGAw@Om@GqADw@@K?mBLa@@Q?SASCWEmCc@_Di@}@K]E_@Ea@AcHi@yIu@{BOeDS_CKiPu@w@CsH[eH[wGYkTcAyFW_U_AkDOo[uAaI]sIa@mAEoBI{CKeBGaDQcEQcCI]?U?S@OBOBWFWJ]Ls@ZoAf@OFSDSBM@O@O?mB?aA@aBDiDXmEd@mBPw@He@FYDWBU?S?]?WA]CmASk@QsAY_B[m@MQCKAOAUAW?c@@k@DK?YC]GWEKCMEi@Qu@ScAYWGSEWCc@CuC@]?Y?kAMsFk@WAo@C[AYGUEi@O[M_CgAoAi@_@QMEWIWG{Fu@}Gq@}Fo@_BQ{Eg@wQoByAO[CaAIwAOmBUa@Ig@KWGSIMGOKwFmFWSUOWMmEeBuEsBQIQGUGMCmDi@mDq@{Aa@gA[gAc@}As@{@e@s@c@e@c@aDaDWUYWSOgCqAOG[KyCs@}G_ByBg@KCICQI[OqEeCc@SYKUGQEKAS?Q@M?"
+              },
+              "start_location": {
+                "lat": 49.3841314,
+                "lng": 27.9242094
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,1 км",
+                "value": 122
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 12
+              },
+              "end_location": {
+                "lat": 49.4939645,
+                "lng": 27.9447803
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eТ0219\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "wramHaxpiDEUAGCGEGCEMI{@k@g@c@g@k@"
+              },
+              "start_location": {
+                "lat": 49.4930764,
+                "lng": 27.9438482
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "5,8 км",
+                "value": 5761
+              },
+              "duration": {
+                "text": "6 мин.",
+                "value": 348
+              },
+              "end_location": {
+                "lat": 49.4735871,
+                "lng": 28.0134776
+              },
+              "html_instructions": "Плавно поверните \u003cb\u003eнаправо\u003c/b\u003e и продолжайте движение по \u003cb\u003eТ0219\u003c/b\u003e",
+              "maneuver": "turn-slight-right",
+              "polyline": {
+                "points": "gxamH{}piDY}AIg@o@qCwAcGOs@Kg@Km@Ia@EYCYAQ?OAO?O?Q@MBe@Hg@He@Lg@Ne@X}@\\gAf@_Bl@iBd@yA\\aATq@Z_AXu@R_@Vc@Vc@f@m@dBqBfCeDdAwAbAgA|DiFh@w@Xk@Pc@Jg@XgAXsAz@gEbKyf@rBoMdIih@|AoJpFm\\|A{JvAwIz@mFb@cCNmAHaALwBXiHb@cKd@qM`Ak\\ZgIF{@Lq@Le@Ro@h@_BvBwGfDaKnAyD|@qChAiDhBsFrCoIR_@NQTM`@Kb@MfAWz@S`@Q^YPWTYvD{F"
+              },
+              "start_location": {
+                "lat": 49.4939645,
+                "lng": 27.9447803
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "11,4 км",
+                "value": 11435
+              },
+              "duration": {
+                "text": "10 мин.",
+                "value": 607
+              },
+              "end_location": {
+                "lat": 49.5740949,
+                "lng": 28.0083687
+              },
+              "html_instructions": "Поверните \u003cb\u003eналево\u003c/b\u003e на \u003cb\u003eP31\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "}x}lHgkC\\"
+              },
+              "start_location": {
+                "lat": 49.4735871,
+                "lng": 28.0134776
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "34,0 км",
+                "value": 33997
+              },
+              "duration": {
+                "text": "29 мин.",
+                "value": 1750
+              },
+              "end_location": {
+                "lat": 49.7989864,
+                "lng": 28.3087058
+              },
+              "html_instructions": "Плавно поверните \u003cb\u003eнаправо\u003c/b\u003e и продолжайте движение по \u003cb\u003eP31\u003c/b\u003e",
+              "maneuver": "turn-slight-right",
+              "polyline": {
+                "points": "amqmHik}iDIEICG?I?Q?I?K?K?MCMAUGQGQKOMKIGEGEECMC[[oCsCaBaBkAkA}D_EuDwD{A{AqGiGwDwDmFmFeFqFWYa@c@{MuM}E}EyH{HeIcIoEoEoNuNuHuHqEsEgDeD_BaBo@o@_F_FmQgQcRgR_E}D}CeD}CeDGI{c@md@y@w@eBiBiCiCsDsD}DaEuDsDcEiE{E}EuDwDaGeG{EaFyFaGiVuViDoDg@g@OOOMMKKIMISKSOQMQOUSYWe@c@k@m@{D{DuFwFsEsE_CyB_CyBwEeEoC_C[WuBcB{IsHqIkHsGyFoL_K{IyHiPcNmPkNyJwIiKkKo_@a_@g_@e_@a^c^m`@_a@cFaF_IgIeJmJ_MeMwIsIkAkAeBoBgBmBEGiEmF[a@_@e@_DoEwGcJsB}CGMSY{GiJqEoGwAkBiAmAeC}@GE_EeBgAi@wB{@w@[c@OkEeAwA[mPcDyBa@}HcBgCc@wCk@ot@mO}LcCkDw@aB]wAY{@Wi@U]U]WOQKMs@mAgHyMuLwT_LoSiKaSi@oAk@yA_@iA_EyKeI{TuNi`@iVgp@}@kCUs@EQEQCQAKAIAEEKu@sBkCgH{DsKkCiH_EyKcD}IgGoPeIwT_DoIqDwJkDyJsD{JwFkO}@eCsDaKg@uA}BkG{BiGcAqCoKwY_BmEeC_HuCcIyCkIs@mB}EwLkS}j@iLy[yK_[aKmY_FeNq\\y~@aJmWq\\w~@oRai@qSel@mQgg@uLi^sFqRof@egBKgB"
+              },
+              "start_location": {
+                "lat": 49.5740949,
+                "lng": 28.0083687
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "22,8 км",
+                "value": 22756
+              },
+              "duration": {
+                "text": "20 мин.",
+                "value": 1217
+              },
+              "end_location": {
+                "lat": 49.9003483,
+                "lng": 28.5756129
+              },
+              "html_instructions": "На крупо003cb\u003eP31\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "uj}nHm`xa@IwBc@oAW"
+              },
+              "start_location": {
+                "lat": 49.7989864,
+                "lng": 28.3087058
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,2 км",
+                "value": 246
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 45
+              },
+              "end_location": {
+                "lat": 49.89965979999999,
+                "lng": 28.5788735
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eвул. 30-річчя Перемоги\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "edqoHqdlmDTiBj@wEVoB\\oCLy@BO"
+              },
+              "start_location": {
+                "lat": 49.9003483,
+                "lng": 28.5756129
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,3 км",
+                "value": 271
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 39
+              },
+              "end_location": {
+                "lat": 49.9016887,
+                "lng": 28.5806746
+              },
+              "html_instructions": "Поверните \u003cb\u003eналево\u003c/b\u003e на \u003cb\u003eвул. Толстого\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "{_qoH}xlmDGWI_@_@gAIUy@s@wAk@}Am@k@SSIWOEGKM"
+              },
+              "start_location": {
+                "lat": 49.89965979999999,
+                "lng": 28.5788735
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,3 км",
+                "value": 261
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 47
+              },
+              "end_location": {
+                "lat": 49.9005252,
+                "lng": 28.5838107
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eвул. Шолом-Алейхема\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "qlqoHedmmD?_@DWBQDONs@Po@FYVy@z@sCXu@j@{AR{@"
+              },
+              "start_location": {
+                "lat": 49.9016887,
+                "lng": 28.5806746
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "3,3 км",
+                "value": 3297
+              },
+              "duration": {
+                "text": "6 мин.",
+                "value": 348
+              },
+              "end_location": {
+                "lat": 49.9269093,
+                "lng": 28.6031592
+              },
+              "html_instructions": "Поверните \u003cb\u003eналево\u003c/b\u003e на \u003cb\u003eвул. Житомирська\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "ieqoHywmmD_Ak@qDmBaAm@IEsI}CkAYMCiD{@yD_AmD{@OE{Aa@[I[Ka@MaHuBGCwA_@y@QwCo@kA[yDw@o@Qu@i@g@a@w@cAq@iAaFeHe@o@a@m@wAuByDuEoCyDyBkCaA_Aa@]y@s@o@i@q@m@kCaCi@g@ECeBaBeB_B}@}@[YyBqBkAiAwDcDiE_Ec@_@_DmCoD{COKMGUM_@O[Gq@G"
+              },
+              "start_location": {
+                "lat": 49.9005252,
+                "lng": 28.5838107
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "3,0 км",
+                "value": 2950
+              },
+              "duration": {
+                "text": "3 мин.",
+                "value": 177
+              },
+              "end_location": {
+                "lat": 49.9520101,
+                "lng": 28.6141339
+              },
+              "html_instructions": "Продолжайте движение по \u003cb\u003eвул. Леніна\u003c/b\u003e",
+              "polyline": {
+                "points": "ejvoHwpqmDyHa@qA_@y@S_HiBoD}@a@SYQc@[a@c@]]a@k@AAeDkGsCmFIGw@m@u@i@_Cy@uA[yGuAqNmCmAYm@MyBe@kCi@qBe@{GwA}LiCeE}@_PiDIIECGCOGsA[]Kq@Uu@Ys@[]QYMYKg@OeAYCA"
+              },
+              "start_location": {
+                "lat": 49.9269093,
+                "lng": 28.6031592
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,2 км",
+                "value": 189
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 12
+              },
+              "end_location": {
+                "lat": 49.9536832,
+                "lng": 28.614629
+              },
+              "html_instructions": "Выезжайте на \u003cb\u003eE583\u003c/b\u003e/\u003cb\u003eМ21\u003c/b\u003e",
+              "maneuver": "merge",
+              "polyline": {
+                "points": "ag{oHiusmD{@Ue@Mi@KyAUq@M]GWG"
+              },
+              "start_location": {
+                "lat": 49.9520101,
+                "lng": 28.6141339
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "31,6 км",
+                "value": 31642
+              },
+              "duration": {
+                "text": "24 мин.",
+                "value": 1424
+              },
+              "end_location": {
+                "lat": 50.2340188,
+                "lng": 28.6736785
+              },
+              "html_instructions": "Продолжайте движение прямо по \u003cb\u003eE583\u003c/b\u003e/\u003cb\u003eМ21\u003c/b\u003e",
+              "maneuver": "straight",
+              "polyline": {
+                "points": "oq{oHmxsmDqASwAUaBWgBOq@Gg@Ge@Gi@KoCg@yEgAk@Ki@K{Dw@oFmAo@Qc@Kc@MMCoE{@cFcA}AYmA[{@QIAEAI?O@mCk@[GqAWsAYqFmAKAsBc@aFgA}Co@aDq@}@QUEWGyBe@iE_Ao@OoBc@oDw@kFiAuFmAcGqAgHyAwCi@aASMKECEAYGcFcAsH}A}Z_Hg@KmHcBo@Mc@IgIeBcFcAcB_@{GwA_OaD}PuD}@Uo@Q}Aa@qDgAsFuAeB_@qAYcDk@kBYk@IG?G?KBiE{@mCk@mBc@}EeAm@OaASoAYiAYuBc@oJsBeAWa@KcAWmOeDIAy@QiE_AkAWmFkA_@IcB_@cASsIiBICaE{@_B]qK_CSMMGIC_@I[I{@QsCg@cDk@ee@kHoHiAkHiAa@EmUoDuB]q@KcW{D_JuAoh@gIwe@mHi\\eFeCa@}@KWESASCO?QAw@C{@?{@?iKLi]f@gX\\iHJmEF]?uQVwMRqEFI?iCLmILeILsPTwDDeCDqFHqFHoEFgHH}Yb@{MPmGHeQTaT\\qJL}OTmNRaJJ}CDuBBoFHI@E@C@GD}CFuHJ}BB_A?U?Q?QAIA]C[CYEa@GmASaEu@mP{CwKqBOC_KiBul@qKkx@wNsCg@{Ck@gB_@yBe@_B]mB]_@I{@QoSuD]GUC{@QaCc@_F{@oDq@k@KgDm@a@IiAW]IuCy@eBi@gEuA]KQGOCMEMCSCSCK?MAO?Q@O@W@eAHcEb@SBcBRa@FwGt@aHx@iAJ]DK@K@M?[@W?k@As@AwDOMAcGWmCKsEUeJ_@E?sGYi@CmKa@MEEAICEAG?k@CsCMgBIeBIw@GyBKgAGe@CYCEAwAKeBOa@EK?I?I?G?M@gC[s@Me@Gw@QoAYaBa@iA[{@WaAYk@Si@QkAa@qBs@qLcEuBs@eL_EyFqBsBs@_L{DiFiBwCcAqFmBsMsE}CgAgIsCwWeJ}CeA{CgAgHcCgJcD_A[mBq@eFiBqBs@{EcBEGEEEECAOG_@OYIUIWGaASm@Kk@KcJaB_Di@sCg@_GcAkAQs@O[Ec@K"
+              },
+              "start_location": {
+                "lat": 49.9536832,
+                "lng": 28.614629
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "4,8 км",
+                "value": 4779
+              },
+              "duration": {
+                "text": "5 мин.",
+                "value": 278
+              },
+              "end_location": {
+                "lat": 50.21321760000001,
+                "lng": 28.7309265
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eСквирське ш.\u003c/b\u003e/\u003cb\u003eР18\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eПродолжайте движение по Р18\u003c/div\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "sirqHoi_nDCIEIEICGCGAGAIAGCKHi@PYHM`@o@vAuBnCeEx@yAd@cA`@}@d@oAd@qA|@gCd@sAf@aBLa@Ng@l@oCf@gCRoARcA^wBJm@d@eCb@qB`@qBFY^cBXgAZkAd@wA|@iC|@iCx@yBN[NYl@kAhJ}N|@qAfAeB^o@vAgCdBgDpAsCp@cBVq@d@sAPm@XgANo@No@TqATyAN_AJaAt@yFj@oEj@mEp@eFv@oGv@cGdA_IVeBVaBTqAN}@PcAXqAd@}Bn@oCn@sCp@qChAuEbAaEdB}Gd@mB^{Aj@_CZuAXqAPaALw@Lu@Js@J}@H{@PsBFo@Di@`@}ELwABS@SHu@Fa@Dc@RyAHg@N{@VgA\\uAv@mCr@_C`BsFpAeEhBmG"
+              },
+              "start_location": {
+                "lat": 50.2340188,
+                "lng": 28.6736785
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,8 км",
+                "value": 755
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 49
+              },
+              "end_location": {
+                "lat": 50.2129464,
+                "lng": 28.7387527
+              },
+              "html_instructions": "Направляйтесь по съезду в сторону \u003cb\u003eКИЇВ\u003c/b\u003e/\u003cb\u003eКОРОСТЕНЬ\u003c/b\u003e/\u003cb\u003eРІВНЕ\u003c/b\u003e",
+              "polyline": {
+                "points": "sgnqHiojnDz@iANSRUPONKLGNGRGNCb@I\\CXEVCLELEFCHIHGDGFKDMDQDUDUBWB]?YAKAMCOGSI[_@oAu@oCm@kCw@eDeAyFo@cEO}@K]"
+              },
+              "start_location": {
+                "lat": 50.21321760000001,
+                "lng": 28.7309265
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "5,1 км",
+                "value": 5064
+              },
+              "duration": {
+                "text": "4 мин.",
+                "value": 242
+              },
+              "end_location": {
+                "lat": 50.2449238,
+                "lng": 28.7844539
+              },
+              "html_instructions": "Продолжайте движение по \u003cb\u003eТ0614\u003c/b\u003e",
+              "polyline": {
+                "points": "}enqHe`lnDs@aFQkAU_Bc@uCSkAi@yC_@}ASu@[mA]iAw@aCUo@oAiDaAiCc@eA[u@}BkF_BcDGKGMS_@y@wAqAyBwAuBkAaB_AqAmAyAcAkAaAeAuBaCkAsA_AmAkAaBmAgBgBsCeAkB_@u@QYO]IOKQUc@O]w@}As@cBe@eAm@_BaBcEk@wAq@wAGMa@_Ac@_AqAuCeA_Cy@oBw@kBWs@c@iAqAqDo@mBSk@cBmF_A{CMe@_BgFmA}D{@uC_A}CaAcDoAcEyAyEw@cCw@{Bi@wA_@_A}@qBOYYg@[m@e@w@aA}AYa@SY]c@g@k@c@g@e@e@UUSQw@o@g@a@g@_@o@a@e@W{Au@m@WuAi@}Ac@kAUSCw@M}@M}@KsC]gDc@}C_@eBS{Em@uAO{C_@cAm@]Y"
+              },
+              "start_location": {
+                "lat": 50.2129464,
+                "lng": 28.7387527
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "4,4 км",
+                "value": 4373
+              },
+              "duration": {
+                "text": "4 мин.",
+                "value": 250
+              },
+              "end_location": {
+                "lat": 50.2822636,
+                "lng": 28.8013746
+              },
+              "html_instructions": "На круге сверните на \u003cb\u003e2-й\u003c/b\u003e съезд и продолжайте движение по \u003cb\u003eТ0614\u003c/b\u003e",
+              "maneuver": "roundabout-right",
+              "polyline": {
+                "points": "wmtqHyAe@e@Ug@Se@OWI"
+              },
+              "start_location": {
+                "lat": 50.2449238,
+                "lng": 28.7844539
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "1,1 км",
+                "value": 1063
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 55
+              },
+              "end_location": {
+                "lat": 50.286319,
+                "lng": 28.8127231
+              },
+              "html_instructions": "Направляйтесь по съезду в сторону \u003cb\u003eКИЇВ\u003c/b\u003e/\u003cb\u003eKIEV\u003c/b\u003e",
+              "polyline": {
+                "points": "cw{qHqgxnDaBeAqAk@{@c@{@_@}@c@{@a@g@Wg@[g@]c@_@a@c@a@i@_@s@Ws@U}@Kc@Kk@Iy@Gy@C_AM_BGmEGkHAuD?gC?y@?_E?kAAsAAe@E_@"
+              },
+              "start_location": {
+                "lat": 50.2822636,
+                "lng": 28.8013746
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "115 км",
+                "value": 115301
+              },
+              "duration": {
+                "text": "1 час. 18 мин.",
+                "value": 4674
+              },
+              "end_location": {
+                "lat": 50.4553854,
+                "lng": 30.35818699999999
+              },
+              "html_instructions": "Продолжайте движение по \u003cb\u003eЕ40\u003c/b\u003e/\u003cb\u003eМ06\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eПродолжайте движение по Е40\u003c/div\u003e",
+              "maneuver": "straight",
+              "polyline": {
+                "points": "op|qyCGwCC_A"
+              },
+              "start_location": {
+                "lat": 50.286319,
+                "lng": 28.8127231
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "9,6 км",
+                "value": 9589
+              },
+              "duration": {
+                "text": "10 мин.",
+                "value": 624
+              },
+              "end_location": {
+                "lat": 50.4469564,
+                "lng": 30.4908074
+              },
+              "html_instructions": "Продолжайте движение по \u003cb\u003eпроспект Перемоги\u003c/b\u003e",
+              "polyline": {
+                "points": "eq}rHuihxDCcKdAoLLuAJiAX_DXcDz@yJl@aGZHrAwNrA_@`@_EDg@Fg@l@oGl@mGx@uJh@kG"
+              },
+              "start_location": {
+                "lat": 50.4553854,
+                "lng": 30.35818699999999
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,2 км",
+                "value": 237
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 48
+              },
+              "end_location": {
+                "lat": 50.44641,
+                "lng": 30.4940478
+              },
+              "html_instructions": "Продолжайте двc/b\u003e",
+              "polyline": {
+                "points": "o|{rHqfbyDBYHy@Hy@t@kHDg@XeD"
+              },
+              "start_location": {
+                "lat": 50.4469564,
+                "lng": 30.4908074
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,1 км",
+                "value": 101
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 47
+              },
+              "end_location": {
+                "lat": 50.4470412,
+                "lng": 30.4941886
+              },
+              "html_instructions": "Поверните \u003cка\u003c/b\u003e",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "ay{rHyzbyD@mA"
+              },
+              "start_location": {
+                "lat": 50.44641,
+                "lng": 30.4940478
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "1,2 км",
+                "value": 1166
+              },
+              "duration": {
+                "text": "4 мин.",
+                "value": 225
+              },
+              "end_location": {
+                "lat": 50.4521255,
+                "lng": 30.5085532
+              },
+              "html_instructions": "Поверните \u003cлеся Гончара\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "_}{rHu{byDOi@q@sBkAuAuEy@qDe@uBKa@EQAEGQUo@g@oA[k@"
+              },
+              "start_location": {
+                "lat": 50.4470412,
+                "lng": 30.4941886
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,1 км",
+                "value": 143
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 37
+              },
+              "end_location": {
+                "lat": 50.4511475,
+                "lng": 30.5098632
+              },
+              "html_instructions": "Повернл\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "y||rHmueyDhAcBb@m@f@u@l@}@"
+              },
+              "start_location": {
+                "lat": 50.4521255,
+                "lng": 30.5085532
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,6 км",
+                "value": 562
+              },
+              "duration": {
+                "text": "2 мин.",
+                "value": 145
+              },
+              "end_location": {
+                "lat": 50.4554001,
+                "lng": 30.5137596
+              },
+              "html_instructions": "Поверните ",
+              "maneuver": "turn-left",
+              "polyline": {
+                "points": "uv|rHs}eyDIUGMQS_@i@CIGIEICIA_@GYEUCSCSASA"
+              },
+              "start_location": {
+                "lat": 50.4511475,
+                "lng": 30.5098632
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,5 км",
+                "value": 484
+              },
+              "duration": {
+                "text": "2 мин.",
+                "value": 108
+              },
+              "end_location": {
+                "lat": 50.4550419,
+                "lng": 30.520523
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eвул. Велика Житомирська\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "gq}rH_vfyD?_@A_@_@B[D[DUHe@H_@FW"
+              },
+              "start_location": {
+                "lat": 50.4554001,
+                "lng": 30.5137596
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,5 км",
+                "value": 468
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 89
+              },
+              "end_location": {
+                "lat": 50.4512127,
+                "lng": 30.5229136
+              },
+              "html_instructions": "u003c/b\u003e и перехайлівська\u003c/b\u003e",
+              "polyline": {
+                "points": "_o}rHg`hyDNCDADADCBCDCDMDMBINe@"
+              },
+              "start_location": {
+                "lat": 50.4550419,
+                "lng": 30.520523
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "0,1 км",
+                "value": 148
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 26
+              },
+              "end_location": {
+                "lat": 50.4503515,
+                "lng": 30.5244951
+              },
+              "html_instructions": "Продолжайте движение по \u003cb\u003eМайдан Незалежності\u003c/b\u003e",
+              "polyline": {
+                "points": "aw|rHeohyDDGHMjCiGBEBGFO"
+              },
+              "start_location": {
+                "lat": 50.4512127,
+                "lng": 30.5229136
+              },
+              "travel_mode": "DRIVING"
+            },
+            {
+              "distance": {
+                "text": "71 м",
+                "value": 71
+              },
+              "duration": {
+                "text": "1 мин.",
+                "value": 8
+              },
+              "end_location": {
+                "lat": 50.44985029999999,
+                "lng": 30.5238646
+              },
+              "html_instructions": "Поверните \u003cb\u003eнаправо\u003c/b\u003e на \u003cb\u003eвул. Хрещатик\u003c/b\u003e",
+              "maneuver": "turn-right",
+              "polyline": {
+                "points": "uq|rHcyhyD\\b@JLt@dABF"
+              },
+              "start_location": {
+                "lat": 50.4503515,
+                "lng": 30.5244951
+              },
+              "travel_mode": "DRIVING"
+            }
+          ],
+          "traffic_speed_entry": [],
+          "via_waypoint": []
+        }
+      ],
+      "overview_polyline": {
+        "points": "q`w"
+      },
+      "summary": "Н03",
+      "warnings": [],
+      "waypoint_order": []
+    }
+  ],
+  "status": "OK"
+}

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -26,7 +27,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -38,10 +41,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.kuzko.aleksey.privatbank.datamodel.DatabaseDeviceAdapter;
 import com.kuzko.aleksey.privatbank.datamodel.Device;
+import com.kuzko.aleksey.privatbank.datamodel.Route;
+import com.kuzko.aleksey.privatbank.datamodel.RouteType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +65,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.kuzko.aleksey.privatbank.R.id.map;
+
 public class MainActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -65,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements
     private final static int MIN_CHARS_NUMBER_TO_SHOW_SUGGESTIONS = 2;
     private final static int CENTER_CAMERA_PERMISSION_CODE = 102;
     private final static String PRIVATBANK_BASE_API_URL = "https://api.privatbank.ua/p24api/";
+    private final static String DIRECTIONS_BASE_API_URL = "https://maps.googleapis.com/maps/";
     private final static String CURSOR_CITY_KEY = "City";
     private final static String NO_SUGGESTIONS_MSG = "No suggestions";
     private static final String LAST_CITY = "current_city";
@@ -84,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements
     private Location myLastLocation;
     private SharedPreferences mSettings;
     private ProgressBar progressBar;
+    private RouteMapService routeService;
+    private TextView pointDestination;
+    private Polyline routeLine;
     private class SaveDevicesToDb extends AsyncTask<Void, Void, Void>{
         @Override
         protected Void doInBackground(Void... params) {
@@ -134,12 +148,39 @@ public class MainActivity extends AppCompatActivity implements
 
         }
     }
+    private class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+        MyInfoWindowAdapter(){
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+
+            ImageView imageMarker = (ImageView) myContentsView.findViewById(R.id.imageMarker);
+            imageMarker.setOnClickListener(view -> Toast.makeText(MainActivity.this, "CLICKED", Toast.LENGTH_SHORT ).show());
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
+            tvTitle.setText(marker.getTitle());
+            TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
+            tvSnippet.setText(marker.getSnippet());
+
+            return myContentsView;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(map);
         mapFragment.getMapAsync(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -162,8 +203,17 @@ public class MainActivity extends AppCompatActivity implements
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
+
+        Retrofit retrofit2 = new Retrofit.Builder()
+                .baseUrl(DIRECTIONS_BASE_API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
         privatBankService = retrofit.create(PrivatBankService.class);
+        routeService = retrofit2.create(RouteMapService.class);
         this.devices = markersAdapterDao.queryForAll();
+
 
     }
 
@@ -173,6 +223,57 @@ public class MainActivity extends AppCompatActivity implements
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private void drawRoute(LatLng origin, LatLng dest) {
+        // type walking, bicycling, transit, driving - default
+        routeService.getRoute("metric", "chernivtsi"/*origin.latitude + "," + origin.longitude*/, "kyiv"/*dest.latitude + "," + dest.longitude*/, RouteType.DRIVING)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                        response -> {
+                            System.out.println(response.raw().request().url());
+                            if (routeLine != null) {
+                                routeLine.remove();
+                            }
+//                            LatLngBounds.Builder latLngBuilder = new LatLngBounds.Builder();
+                            System.out.println("SIZE=" + response.body().getRoutes().size());
+                            for (Route currentRoute : response.body().getRoutes()) {
+                                String encodedString = currentRoute.getOverviewPolyline().getPoints();
+                                routeLine = mMap.addPolyline(new PolylineOptions().addAll(decodePoly(encodedString)).width(10).color(Color.RED).geodesic(true));
+                            }
+                        }
+        );
+    }
+
+    public List<LatLng> decodePoly(String encoded) {
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng( (((double) lat / 1E5)),
+                    (((double) lng / 1E5) ));
+            poly.add(p);
+        }
+        return poly;
     }
 
     @Override
@@ -210,6 +311,7 @@ public class MainActivity extends AppCompatActivity implements
                 if (searchedCity != null && !searchedCity.equals("")) {
                     searchDevices(searchedCity);
                     new CenterCameraOnCity(searchedCity).execute();
+                    drawRoute(new LatLng(48, 52),new LatLng(49, 53));
                 }
                 return false;
             }
@@ -370,8 +472,12 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+
+
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
+
         mGoogleApiClient.connect();
         redrawDevicesOnMap();
         this.currentCity = retrieveLastCity();
@@ -400,7 +506,9 @@ public class MainActivity extends AppCompatActivity implements
         } else if (requestCode == CENTER_CAMERA_PERMISSION_CODE) {
             try {
                 myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                centerCamera(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()));
+                if(myLastLocation != null){
+                    centerCamera(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()));
+                }
                 searchDevices(determineCityName(myLastLocation));
             } catch (SecurityException e) {
                 Toast.makeText(this, R.string.msg_no_location_permissons, Toast.LENGTH_LONG).show();
