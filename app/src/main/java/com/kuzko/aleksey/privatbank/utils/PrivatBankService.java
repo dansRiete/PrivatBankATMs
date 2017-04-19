@@ -1,4 +1,4 @@
-package com.kuzko.aleksey.privatbank;
+package com.kuzko.aleksey.privatbank.utils;
 
 import com.kuzko.aleksey.privatbank.datamodel.City;
 
@@ -13,5 +13,8 @@ import rx.Observable;
 public interface PrivatBankService {
 
     @GET("infrastructure?json&atm")
-    Observable<City> fetchDevices(@Query("city") String city);
+    Observable<City> fetchATMs(@Query("city") String city);
+
+    @GET("infrastructure?json&tso")
+    Observable<City> fetchTSOs(@Query("city") String city);
 }

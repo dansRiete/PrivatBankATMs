@@ -11,6 +11,10 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "markerinfos")
 public class DatabaseDeviceAdapter {
 
+    private final static String TSO_TITLE = "Терминал";
+    private final static String ATM_TITLE = "Банкомат";
+    private final static String TSO_TYPE_CODE = "TSO";
+
     @DatabaseField(generatedId = true)
     private long id;
     @DatabaseField
@@ -26,7 +30,7 @@ public class DatabaseDeviceAdapter {
 
     public DatabaseDeviceAdapter(Device device){
         this.markerSnippet = device.getFullAddressRu();
-        this.markerTitle = device.getCityRU() + " - " + device.getPlaceRu();
+        this.markerTitle = device.getType().equalsIgnoreCase(TSO_TYPE_CODE) ? TSO_TITLE + " - " + device.getPlaceRu() : ATM_TITLE + " - " + device.getPlaceRu();
         this.latitude = Double.valueOf(device.getLatitude());
         this.longitude = Double.valueOf(device.getLongitude());
     }

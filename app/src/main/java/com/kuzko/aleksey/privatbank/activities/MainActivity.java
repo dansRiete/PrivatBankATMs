@@ -1,4 +1,4 @@
-package com.kuzko.aleksey.privatbank;
+package com.kuzko.aleksey.privatbank.activities;
 
 import android.Manifest;
 import android.app.SearchManager;
@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -16,19 +17,21 @@ import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,26 +39,37 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.kuzko.aleksey.privatbank.utils.DatabaseHelper;
+import com.kuzko.aleksey.privatbank.utils.MapUtils;
+import com.kuzko.aleksey.privatbank.utils.PrivatBankService;
+import com.kuzko.aleksey.privatbank.R;
+import com.kuzko.aleksey.privatbank.utils.RouteMapService;
+import com.kuzko.aleksey.privatbank.datamodel.City;
 import com.kuzko.aleksey.privatbank.datamodel.DatabaseDeviceAdapter;
 import com.kuzko.aleksey.privatbank.datamodel.Device;
-
+import com.kuzko.aleksey.privatbank.datamodel.Route;
+import com.kuzko.aleksey.privatbank.datamodel.RouteType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
-
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import static com.kuzko.aleksey.privatbank.R.id.map;
 
 public class MainActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
@@ -64,33 +78,42 @@ public class MainActivity extends AppCompatActivity implements
     private final static int SET_MY_LOCATION_PERMISSION_CODE = 101;
     private final static int MIN_CHARS_NUMBER_TO_SHOW_SUGGESTIONS = 2;
     private final static int CENTER_CAMERA_PERMISSION_CODE = 102;
+    private final static int ROUTE_COLOR = Color.RED;
     private final static String PRIVATBANK_BASE_API_URL = "https://api.privatbank.ua/p24api/";
+    private final static String DIRECTIONS_BASE_API_URL = "https://maps.googleapis.com/maps/";
     private final static String CURSOR_CITY_KEY = "City";
     private final static String NO_SUGGESTIONS_MSG = "No suggestions";
     private static final String LAST_CITY = "current_city";
     private static final String LAST_LATITUDE = "last_latitude";
-    private static final String LAST_LONGITUDE = "last_lonitude";
+    private static final String LAST_LONGITUDE = "last_longitude";
+    private static final String LOG_ERROR_TAG = "ERROR";
     private final static float DEFAULT_ZOOM = 11;
     private GoogleMap mMap;
     private String currentCity;
-    private DatabaseHelper databaseHelper;
     private List<DatabaseDeviceAdapter> devices = new ArrayList<>();
     private RuntimeExceptionDao<DatabaseDeviceAdapter, Long> markersAdapterDao;
     private PrivatBankService privatBankService;
     private SearchView searchView;
-    private MenuItem searchItem;
     private SimpleCursorAdapter citySuggestionsAdapter;
     private GoogleApiClient mGoogleApiClient;
     private Location myLastLocation;
     private SharedPreferences mSettings;
     private ProgressBar progressBar;
+    private RouteMapService routeService;
+    private Polyline routeLine;
+    private FloatingActionButton cancelRouteButton;
+    private MapUtils mapUtils = new MapUtils();
     private class SaveDevicesToDb extends AsyncTask<Void, Void, Void>{
+        private List<DatabaseDeviceAdapter> deviceAdapters;
+        SaveDevicesToDb(List<DatabaseDeviceAdapter> deviceAdapters){
+            this.deviceAdapters = deviceAdapters;
+        }
         @Override
         protected Void doInBackground(Void... params) {
             for(DatabaseDeviceAdapter currentDevice : markersAdapterDao.queryForAll()){
                 markersAdapterDao.delete(currentDevice);
             }
-            for (DatabaseDeviceAdapter currentDevice : devices) {
+            for (DatabaseDeviceAdapter currentDevice : deviceAdapters) {
                 markersAdapterDao.create(currentDevice);
             }
             return null;
@@ -134,18 +157,45 @@ public class MainActivity extends AppCompatActivity implements
 
         }
     }
+    private class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+        MyInfoWindowAdapter(){
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_marker_info_contents, null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
+            tvTitle.setText(marker.getTitle());
+            TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
+            tvSnippet.setText(marker.getSnippet());
+
+            return myContentsView;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(map);
+        cancelRouteButton = (FloatingActionButton) findViewById(R.id.cancelRouteButton);
+        cancelRouteButton.setOnClickListener((view) -> removeRoute());
+        cancelRouteButton.setVisibility(View.INVISIBLE);
         mapFragment.getMapAsync(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressBar = (ProgressBar) this.findViewById(R.id.pbLoading);
         mSettings = getSharedPreferences(LAST_CITY, Context.MODE_PRIVATE);
-        this.databaseHelper = new DatabaseHelper(getApplicationContext());
+        DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
         this.markersAdapterDao = databaseHelper.getMarkersDao();
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -157,13 +207,22 @@ public class MainActivity extends AppCompatActivity implements
         citySuggestionsAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, null,
                 new String[]{CURSOR_CITY_KEY}, new int[]{android.R.id.text1}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
-        Retrofit retrofit = new Retrofit.Builder()
+        Retrofit retrofitPrivatBankService = new Retrofit.Builder()
                 .baseUrl(PRIVATBANK_BASE_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-        privatBankService = retrofit.create(PrivatBankService.class);
+
+        Retrofit retrofitRouteService = new Retrofit.Builder()
+                .baseUrl(DIRECTIONS_BASE_API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        privatBankService = retrofitPrivatBankService.create(PrivatBankService.class);
+        routeService = retrofitRouteService.create(RouteMapService.class);
         this.devices = markersAdapterDao.queryForAll();
+
 
     }
 
@@ -175,10 +234,46 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    private void removeRoute(){
+        if (routeLine != null) {
+            routeLine.remove();
+            cancelRouteButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void drawRoute(LatLng origin, LatLng destination) {
+        routeService.getRoute(origin.latitude + "," + origin.longitude, destination.latitude + "," + destination.longitude, RouteType.DRIVING)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        response -> {
+                            removeRoute();
+                            for (Route currentRoute : response.body().getRoutes()) {
+                                String encodedString = currentRoute.getOverviewPolyline().getPoints();
+                                routeLine = mMap.addPolyline(
+                                        new PolylineOptions().addAll(mapUtils.decodePoly(encodedString))
+                                                .width(10).color(ROUTE_COLOR).geodesic(true)
+                                );
+                            }
+                            cancelRouteButton.setVisibility(View.VISIBLE);
+                        },
+                        throwable -> {
+                            Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Log.d(LOG_ERROR_TAG, throwable.getLocalizedMessage());
+                        }
+        );
+    }
+
+    private void drawRoute(Marker destination){
+        if(myLastLocation != null && destination != null){
+            drawRoute(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()), destination.getPosition());
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        searchItem = menu.findItem(R.id.action_search);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) searchItem.getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
@@ -204,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String searchedCity) {
                 progressBar.setVisibility(ProgressBar.VISIBLE);
@@ -217,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public boolean onQueryTextChange(String query) {
                 if(query.toCharArray().length >= MIN_CHARS_NUMBER_TO_SHOW_SUGGESTIONS){
-                    privatBankService.fetchDevices(query)
+                    privatBankService.fetchATMs(query)
                             .subscribeOn(Schedulers.io())
                             .map(response -> {
                                 LinkedHashSet<String> citiesSet = new LinkedHashSet<>();
@@ -233,10 +329,10 @@ public class MainActivity extends AppCompatActivity implements
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     sortedCities -> showSuggestions(sortedCities),
-                                    throwable -> System.out.println(throwable.getLocalizedMessage())
+                                    throwable -> Log.d(LOG_ERROR_TAG, throwable.getLocalizedMessage())
                             );
                 }
-                return false;
+                return true;
             }
         });
         return true;
@@ -249,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements
             MatrixCursor mc = new MatrixCursor(new String[]{BaseColumns._ID, CURSOR_CITY_KEY});
             if (!suggestedLocations.isEmpty()) {
                 for (int i = 0; i < suggestedLocations.size(); i++) {
-                    mc.addRow(new Object[]{i, suggestedLocations.get(i)/*.getName()*/});
+                    mc.addRow(new Object[]{i, suggestedLocations.get(i)});
                 }
                 citySuggestionsAdapter.changeCursor(mc);
             } else {
@@ -259,22 +355,10 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private String determineCityName(Location coords) {
-        String city = null;
-        if(coords != null){
-            Geocoder gcd = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = null;
-
-            try {
-                addresses = gcd.getFromLocation(coords.getLatitude(), coords.getLongitude(), 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (addresses != null && addresses.size() > 0) {
-                city = addresses.get(0).getLocality();
-            }
-        }
-        return city;
+    private List<Device> combineATMsAndTSOs(City currentCityATMs, City currentCityTSOs){
+        Collection<Device> ATMsAndTSOs = currentCityATMs.getDevices();
+        ATMsAndTSOs.addAll(currentCityTSOs.getDevices());
+        return new ArrayList<>(ATMsAndTSOs);
     }
 
     public void searchDevices(String city) {
@@ -282,30 +366,26 @@ public class MainActivity extends AppCompatActivity implements
         if(city == null || city.equals("")){
             return;
         }
+
         progressBar.setVisibility(ProgressBar.VISIBLE);
-        privatBankService.fetchDevices(city)
+        this.currentCity = city;
+        saveLastCity(city);
+
+        Observable.combineLatest(privatBankService.fetchATMs(city), privatBankService.fetchTSOs(city), this::combineATMsAndTSOs)
                 .subscribeOn(Schedulers.io())
+                .map(this::convertToDeviceAdapters)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        example -> {
-                            if(!example.getDevices().isEmpty()){
-                                this.devices = toDeviceAdaptersList(example.getDevices());
-                                redrawDevicesOnMap();
-                                new SaveDevicesToDb().execute();
-                                this.currentCity = city;
-                                saveLastCity(city);
-                            }
-                            progressBar.setVisibility(ProgressBar.INVISIBLE);
-                            Toast.makeText(this, example.getDevices().size() + " devices found in \"" + city + '\"', Toast.LENGTH_LONG).show();
-                        },
+                        this::redrawDevicesOnMap,
                         throwable -> {
                             progressBar.setVisibility(ProgressBar.INVISIBLE);
                             Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Log.d(LOG_ERROR_TAG, throwable.getLocalizedMessage());
                         }
                 );
     }
 
-    private List<DatabaseDeviceAdapter> toDeviceAdaptersList(Collection<Device> devices){
+    private List<DatabaseDeviceAdapter> convertToDeviceAdapters(Collection<Device> devices){
         List<DatabaseDeviceAdapter> deviceAdapters = new ArrayList<>();
         for (Device currentDevice : devices) {
             deviceAdapters.add(new DatabaseDeviceAdapter(currentDevice));
@@ -313,8 +393,27 @@ public class MainActivity extends AppCompatActivity implements
         return deviceAdapters;
     }
 
-    private void redrawDevicesOnMap() {
+    private void redrawDevicesOnMap(List<DatabaseDeviceAdapter> allDeviceAdapters) {
 
+        if(allDeviceAdapters != null && !allDeviceAdapters.isEmpty()){
+            this.devices = allDeviceAdapters;
+            new SaveDevicesToDb(allDeviceAdapters).execute();
+            mMap.clear();
+            for (DatabaseDeviceAdapter deviceAdapter : allDeviceAdapters) {
+                LatLng currPos = new LatLng(deviceAdapter.getLatitude(), deviceAdapter.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(currPos).title(deviceAdapter.getMarkerTitle())
+                        .snippet(deviceAdapter.getMarkerSnippet()).icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            }
+            Toast.makeText(this, allDeviceAdapters.size() + " devices found in \"" + currentCity + '\"', Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "No devices found in \"" + currentCity + '\"', Toast.LENGTH_SHORT).show();
+        }
+
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
+    }
+
+    private void redrawDevicesOnMap(){
         if (devices != null){
             mMap.clear();
             for (DatabaseDeviceAdapter deviceAdapter : devices) {
@@ -347,6 +446,12 @@ public class MainActivity extends AppCompatActivity implements
         return latLng;
     }
 
+    private void saveLastCity(String city) {
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putString(LAST_CITY, city);
+        editor.apply();
+    }
+
     private String retrieveLastCity(){
         String currentCity = null;
         if(mSettings.contains(LAST_CITY)) {
@@ -354,16 +459,10 @@ public class MainActivity extends AppCompatActivity implements
         }
         if(currentCity == null || currentCity.equals("")){
             if(myLastLocation != null){
-                currentCity = determineCityName(myLastLocation);
+                currentCity = mapUtils.determineCityName(myLastLocation, this);
             }
         }
         return currentCity;
-    }
-
-    private void saveLastCity(String city) {
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(LAST_CITY, city);
-        editor.apply();
     }
 
 
@@ -372,12 +471,14 @@ public class MainActivity extends AppCompatActivity implements
 
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
+        mMap.setOnInfoWindowClickListener(this::drawRoute);
         mGoogleApiClient.connect();
         redrawDevicesOnMap();
         this.currentCity = retrieveLastCity();
-//        centerCamera(obtainCoordinates(currentCity));
         new CenterCameraOnCity(currentCity).execute();
-        if(devices == null || devices.size() == 0){
+        if(devices == null || !devices.isEmpty()){
             searchDevices(currentCity);
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -394,8 +495,13 @@ public class MainActivity extends AppCompatActivity implements
         if (requestCode == SET_MY_LOCATION_PERMISSION_CODE) {
             try {
                 mMap.setMyLocationEnabled(true);
+                myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                if(myLastLocation != null){
+                    centerCamera(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()));
+                }
+                searchDevices(mapUtils.determineCityName(myLastLocation, this));
             } catch (SecurityException e) {
-                Toast.makeText(this, "NO LOCATION PERMISSIONS", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.no_location_permissions_msg, Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == CENTER_CAMERA_PERMISSION_CODE) {
             try {
@@ -403,7 +509,7 @@ public class MainActivity extends AppCompatActivity implements
                 if(myLastLocation != null){
                     centerCamera(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()));
                 }
-                searchDevices(determineCityName(myLastLocation));
+                searchDevices(mapUtils.determineCityName(myLastLocation, this));
             } catch (SecurityException e) {
                 Toast.makeText(this, R.string.msg_no_location_permissons, Toast.LENGTH_LONG).show();
             }
@@ -416,7 +522,6 @@ public class MainActivity extends AppCompatActivity implements
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             this.currentCity = retrieveLastCity();
-//            centerCamera(obtainCoordinates(currentCity));
             new CenterCameraOnCity(currentCity).execute();
             searchDevices(currentCity);
         } else {
