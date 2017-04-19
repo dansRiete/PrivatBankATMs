@@ -5,4 +5,5 @@
     <string name="msg_no_location_permissons">YOU GOT NO LOCATION PERMISSIONS</string>
     <string name="direction_api_key">AIzaSyAtwjWUPJzZUl2tw5ejP3wsUZOfckfNJBo</string>
     <string name="no_location_permissions_msg">NO LOCATION PERMISSIONS</string>
+    <string name="no_routes_msg">There were no routes to draw</string>
 </resources>

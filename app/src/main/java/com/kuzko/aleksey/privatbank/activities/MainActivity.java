@@ -32,6 +32,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -47,28 +48,31 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.kuzko.aleksey.privatbank.utils.DatabaseHelper;
-import com.kuzko.aleksey.privatbank.utils.MapUtils;
-import com.kuzko.aleksey.privatbank.utils.PrivatBankService;
 import com.kuzko.aleksey.privatbank.R;
-import com.kuzko.aleksey.privatbank.utils.RouteMapService;
 import com.kuzko.aleksey.privatbank.datamodel.City;
 import com.kuzko.aleksey.privatbank.datamodel.DatabaseDeviceAdapter;
 import com.kuzko.aleksey.privatbank.datamodel.Device;
 import com.kuzko.aleksey.privatbank.datamodel.Route;
 import com.kuzko.aleksey.privatbank.datamodel.RouteType;
+import com.kuzko.aleksey.privatbank.utils.DatabaseHelper;
+import com.kuzko.aleksey.privatbank.utils.MapUtils;
+import com.kuzko.aleksey.privatbank.utils.PrivatBankService;
+import com.kuzko.aleksey.privatbank.utils.RouteMapService;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
 import static com.kuzko.aleksey.privatbank.R.id.map;
 
 public class MainActivity extends AppCompatActivity implements
@@ -88,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements
     private static final String LAST_LONGITUDE = "last_longitude";
     private static final String LOG_ERROR_TAG = "ERROR";
     private final static float DEFAULT_ZOOM = 11;
-    private GoogleMap mMap;
+    private GoogleMap googleMap;
     private String currentCity;
-    private List<DatabaseDeviceAdapter> devices = new ArrayList<>();
+    private List<DatabaseDeviceAdapter> deviceAdapters = new ArrayList<>();
     private RuntimeExceptionDao<DatabaseDeviceAdapter, Long> markersAdapterDao;
     private PrivatBankService privatBankService;
     private SearchView searchView;
@@ -130,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements
             if(city == null || city.equals("")){
                 return null;
             }
-            //// TODO: 12.04.2017 TRY TO CHECK IS THERE CONNECTION TO THE INTERNET FIRSTLY
 
             Geocoder geocoder = new Geocoder(MainActivity.this);
             List<Address> address = null;
@@ -221,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements
 
         privatBankService = retrofitPrivatBankService.create(PrivatBankService.class);
         routeService = retrofitRouteService.create(RouteMapService.class);
-        this.devices = markersAdapterDao.queryForAll();
+        this.deviceAdapters = markersAdapterDao.queryForAll();
 
 
     }
@@ -241,32 +244,43 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void drawRoute(LatLng origin, LatLng destination) {
-        routeService.getRoute(origin.latitude + "," + origin.longitude, destination.latitude + "," + destination.longitude, RouteType.DRIVING)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        response -> {
-                            removeRoute();
-                            for (Route currentRoute : response.body().getRoutes()) {
-                                String encodedString = currentRoute.getOverviewPolyline().getPoints();
-                                routeLine = mMap.addPolyline(
-                                        new PolylineOptions().addAll(mapUtils.decodePoly(encodedString))
-                                                .width(10).color(ROUTE_COLOR).geodesic(true)
-                                );
-                            }
-                            cancelRouteButton.setVisibility(View.VISIBLE);
-                        },
-                        throwable -> {
-                            Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                            Log.d(LOG_ERROR_TAG, throwable.getLocalizedMessage());
-                        }
-        );
+    private void logError(Throwable throwable, boolean showToast){
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
+        if(showToast){
+            Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        }
+        Log.d(LOG_ERROR_TAG, throwable.getLocalizedMessage());
     }
 
-    private void drawRoute(Marker destination){
-        if(myLastLocation != null && destination != null){
-            drawRoute(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()), destination.getPosition());
+    private void findRoute(Marker destination) {
+        if(myLastLocation != null){
+            routeService.findRoute(myLastLocation.getLatitude() + "," + myLastLocation.getLongitude(),
+                    destination.getPosition().latitude + "," + destination.getPosition().longitude, RouteType.DRIVING)
+                    .subscribeOn(Schedulers.io())
+                    .map(response -> {
+                        if(response.body().getRoutes().size() > 0){
+                            return response.body().getRoutes().get(0);
+                        }else {
+                            return null;
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::drawRouteOnMap, throwable -> logError(throwable, true));
+        }
+
+    }
+
+    private void drawRouteOnMap(Route route){
+        if(route != null){
+            removeRoute();
+            String encodedString = route.getOverviewPolyline().getPoints();
+            routeLine = googleMap.addPolyline(
+                    new PolylineOptions().addAll(mapUtils.decodePoly(encodedString))
+                            .width(10).color(ROUTE_COLOR).geodesic(true)
+            );
+            cancelRouteButton.setVisibility(View.VISIBLE);
+        }else {
+            Toast.makeText(this, R.string.no_routes_msg, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -316,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements
                     privatBankService.fetchATMs(query)
                             .subscribeOn(Schedulers.io())
                             .map(response -> {
-                                LinkedHashSet<String> citiesSet = new LinkedHashSet<>();
+                                HashSet<String> citiesSet = new HashSet<>();
                                 for(Device currentDevice : response.getDevices()){
                                     if(currentDevice.getCityRU().toLowerCase().startsWith(query.toLowerCase())){
                                         citiesSet.add(currentDevice.getCityRU());
@@ -329,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     sortedCities -> showSuggestions(sortedCities),
-                                    throwable -> Log.d(LOG_ERROR_TAG, throwable.getLocalizedMessage())
+                                    throwable -> logError(throwable, false)
                             );
                 }
                 return true;
@@ -355,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private List<Device> combineATMsAndTSOs(City currentCityATMs, City currentCityTSOs){
+    private List<Device> mergeATMsAndTSOs(City currentCityATMs, City currentCityTSOs){
         Collection<Device> ATMsAndTSOs = currentCityATMs.getDevices();
         ATMsAndTSOs.addAll(currentCityTSOs.getDevices());
         return new ArrayList<>(ATMsAndTSOs);
@@ -371,18 +385,11 @@ public class MainActivity extends AppCompatActivity implements
         this.currentCity = city;
         saveLastCity(city);
 
-        Observable.combineLatest(privatBankService.fetchATMs(city), privatBankService.fetchTSOs(city), this::combineATMsAndTSOs)
+        Observable.combineLatest(privatBankService.fetchATMs(city), privatBankService.fetchTSOs(city), this::mergeATMsAndTSOs)
                 .subscribeOn(Schedulers.io())
                 .map(this::convertToDeviceAdapters)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        this::redrawDevicesOnMap,
-                        throwable -> {
-                            progressBar.setVisibility(ProgressBar.INVISIBLE);
-                            Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                            Log.d(LOG_ERROR_TAG, throwable.getLocalizedMessage());
-                        }
-                );
+                .subscribe(this::redrawDevicesOnMap, throwable -> logError(throwable, true));
     }
 
     private List<DatabaseDeviceAdapter> convertToDeviceAdapters(Collection<Device> devices){
@@ -393,19 +400,25 @@ public class MainActivity extends AppCompatActivity implements
         return deviceAdapters;
     }
 
-    private void redrawDevicesOnMap(List<DatabaseDeviceAdapter> allDeviceAdapters) {
+    private void redrawDevicesOnMap(List<DatabaseDeviceAdapter> deviceAdapters) {
 
-        if(allDeviceAdapters != null && !allDeviceAdapters.isEmpty()){
-            this.devices = allDeviceAdapters;
-            new SaveDevicesToDb(allDeviceAdapters).execute();
-            mMap.clear();
-            for (DatabaseDeviceAdapter deviceAdapter : allDeviceAdapters) {
-                LatLng currPos = new LatLng(deviceAdapter.getLatitude(), deviceAdapter.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(currPos).title(deviceAdapter.getMarkerTitle())
-                        .snippet(deviceAdapter.getMarkerSnippet()).icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        if(deviceAdapters != null && !deviceAdapters.isEmpty()){
+            this.deviceAdapters = deviceAdapters;
+            new SaveDevicesToDb(deviceAdapters).execute();
+            googleMap.clear();
+            for (DatabaseDeviceAdapter currentDeviceAdapter : deviceAdapters) {
+                LatLng currPos = new LatLng(currentDeviceAdapter.getLatitude(), currentDeviceAdapter.getLongitude());
+                MarkerOptions markerOptions;
+                if(currentDeviceAdapter.getDeviceType().equalsIgnoreCase("TSO")){
+                    markerOptions = new MarkerOptions().position(currPos).title(currentDeviceAdapter.getMarkerTitle())
+                            .snippet(currentDeviceAdapter.getMarkerSnippet()).icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }else {
+                    markerOptions = new MarkerOptions().position(currPos).title(currentDeviceAdapter.getMarkerTitle()).snippet(currentDeviceAdapter.getMarkerSnippet());
+                }
+                googleMap.addMarker(markerOptions);
             }
-            Toast.makeText(this, allDeviceAdapters.size() + " devices found in \"" + currentCity + '\"', Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, deviceAdapters.size() + " devices found in \"" + currentCity + '\"', Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "No devices found in \"" + currentCity + '\"', Toast.LENGTH_SHORT).show();
         }
@@ -414,11 +427,19 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void redrawDevicesOnMap(){
-        if (devices != null){
-            mMap.clear();
-            for (DatabaseDeviceAdapter deviceAdapter : devices) {
-                LatLng currPos = new LatLng(deviceAdapter.getLatitude(), deviceAdapter.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(currPos).title(deviceAdapter.getMarkerTitle()).snippet(deviceAdapter.getMarkerSnippet()));
+        if (deviceAdapters != null){
+            googleMap.clear();
+            for (DatabaseDeviceAdapter currentDeviceAdapter : deviceAdapters) {
+                LatLng currPos = new LatLng(currentDeviceAdapter.getLatitude(), currentDeviceAdapter.getLongitude());
+                MarkerOptions markerOptions;
+                if(currentDeviceAdapter.getDeviceType().equalsIgnoreCase("TSO")){
+                    markerOptions = new MarkerOptions().position(currPos).title(currentDeviceAdapter.getMarkerTitle())
+                            .snippet(currentDeviceAdapter.getMarkerSnippet()).icon(BitmapDescriptorFactory
+                                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }else {
+                    markerOptions = new MarkerOptions().position(currPos).title(currentDeviceAdapter.getMarkerTitle()).snippet(currentDeviceAdapter.getMarkerSnippet());
+                }
+                googleMap.addMarker(markerOptions);
             }
         }
     }
@@ -426,7 +447,7 @@ public class MainActivity extends AppCompatActivity implements
     private void centerCamera(LatLng givenCoords) {
         if (givenCoords != null) {
             CameraPosition cameraPosition = new CameraPosition.Builder().target(givenCoords).zoom(DEFAULT_ZOOM).build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             saveLastLocation(givenCoords);
         }
     }
@@ -469,16 +490,16 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mMap = googleMap;
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.getUiSettings().setMapToolbarEnabled(false);
-        mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
-        mMap.setOnInfoWindowClickListener(this::drawRoute);
+        this.googleMap = googleMap;
+        this.googleMap.getUiSettings().setZoomControlsEnabled(true);
+        this.googleMap.getUiSettings().setMapToolbarEnabled(false);
+        this.googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
+        this.googleMap.setOnInfoWindowClickListener(this::findRoute);
         mGoogleApiClient.connect();
         redrawDevicesOnMap();
         this.currentCity = retrieveLastCity();
         new CenterCameraOnCity(currentCity).execute();
-        if(devices == null || !devices.isEmpty()){
+        if(deviceAdapters == null || !deviceAdapters.isEmpty()){
             searchDevices(currentCity);
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -494,7 +515,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == SET_MY_LOCATION_PERMISSION_CODE) {
             try {
-                mMap.setMyLocationEnabled(true);
+                googleMap.setMyLocationEnabled(true);
                 myLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
                 if(myLastLocation != null){
                     centerCamera(new LatLng(myLastLocation.getLatitude(), myLastLocation.getLongitude()));

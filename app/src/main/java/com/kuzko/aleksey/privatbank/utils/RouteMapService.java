@@ -18,7 +18,7 @@ public interface RouteMapService {
     String UNIT_SYSTEM = "metric";
 
     @GET("api/directions/json?units=" + UNIT_SYSTEM + "&key=" + API_KEY)
-    Observable<Response<RouteResponse>> getRoute(
+    Observable<Response<RouteResponse>> findRoute(
             @Query("origin") String origin,
             @Query("destination") String destination,
             @Query("mode") RouteType mode

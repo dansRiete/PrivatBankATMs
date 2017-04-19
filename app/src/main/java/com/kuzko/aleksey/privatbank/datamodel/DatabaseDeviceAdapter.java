@@ -25,6 +25,8 @@ public class DatabaseDeviceAdapter {
     private double longitude;
     @DatabaseField
     private String markerTitle;
+    @DatabaseField
+    private String deviceType;
 
     public DatabaseDeviceAdapter(){}
 
@@ -33,6 +35,7 @@ public class DatabaseDeviceAdapter {
         this.markerTitle = device.getType().equalsIgnoreCase(TSO_TYPE_CODE) ? TSO_TITLE + " - " + device.getPlaceRu() : ATM_TITLE + " - " + device.getPlaceRu();
         this.latitude = Double.valueOf(device.getLatitude());
         this.longitude = Double.valueOf(device.getLongitude());
+        this.deviceType = device.getType();
     }
 
     public long getId() {
@@ -81,5 +84,9 @@ public class DatabaseDeviceAdapter {
         this.markerSnippet = marker.getSnippet();
         this.markerTitle = marker.getTitle();
         return this;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
     }
 }
