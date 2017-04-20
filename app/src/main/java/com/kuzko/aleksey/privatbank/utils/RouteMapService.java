@@ -14,7 +14,7 @@ import rx.Observable;
 
 public interface RouteMapService {
 
-    String API_KEY = "AIzaSyAtwjWUPJzZUl2tw5ejP3wsUZOfckfNJBo";
+    String API_KEY = "AIzaSyBYYOC3DZzCgu0uwxkq0Hl0rF4NB0KkwOg";
     String UNIT_SYSTEM = "metric";
 
     @GET("api/directions/json?units=" + UNIT_SYSTEM + "&key=" + API_KEY)

@@ -137,8 +137,10 @@ public class MainActivity extends AppCompatActivity implements
 
             Geocoder geocoder = new Geocoder(MainActivity.this);
             List<Address> address = null;
+            String requestedAddress = null;
             try {
-                address = geocoder.getFromLocationName(city + ", Украина", 5);
+                requestedAddress = city + ", Украина";
+                address = geocoder.getFromLocationName(requestedAddress, 5);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
